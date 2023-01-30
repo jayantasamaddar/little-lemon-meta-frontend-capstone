@@ -1,0 +1,28 @@
+section.specials {
+  padding: 100px 12%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.specials-titlebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.specials-items {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.card-header {
+  display: inline-flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}

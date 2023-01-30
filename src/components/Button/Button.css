@@ -1,0 +1,30 @@
+/** Resets */
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background-color: unset;
+  appearance: none;
+  cursor: pointer;
+}
+
+.btn {
+  padding: 16px;
+  min-width: 85px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.btn.primary {
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+}
+
+.btn.primary:hover {
+  background-color: var(--color-primary-2);
+  color: var(--color-black-full);
+  border-color: var(--color-primary-2);
+  transition: 0.3s ease-in-out;
+}

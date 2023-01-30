@@ -1,0 +1,54 @@
+section.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 100px;
+  padding: 1.25rem 12%;
+  max-width: 100%;
+  background-color: darkgray;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+}
+.hero-right {
+  height: 400px;
+}
+
+.hero-right img {
+  height: 100%;
+  width: 450px;
+  object-fit: fill;
+}
+
+#hero-desc {
+  padding: 1.5rem 0;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  section.hero {
+    display: block;
+    padding: 0;
+    margin: 0;
+  }
+  .hero-left {
+    position: absolute;
+    width: 50%;
+    top: calc(25% - 2 * 1.25rem);
+    left: 25%;
+    padding: 1.25rem;
+    text-align: center;
+    background-color: rgba(0 0 0 / 0.5);
+    color: var(--color-white);
+  }
+  .hero-left h1 {
+    text-align: center;
+  }
+  .hero-right img {
+    height: 100%;
+    width: 100%;
+  }
+}

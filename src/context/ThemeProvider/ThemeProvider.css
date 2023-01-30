@@ -1,0 +1,32 @@
+* {
+  /** Colors */
+  --color-primary: #495e57;
+  --color-primary-2: #f4ce14;
+  --color-secondary: #ee9972;
+  --color-secondary-2: #fbdabb;
+  --color-off-white: #edefee;
+  --color-white: #ffffff;
+  --color-black: #333333;
+  --color-black-full: #000000;
+
+  /** Height */
+  --min-height-header: '80px';
+  --min-height-footer: '80px';
+
+  /** Box Shadow */
+  --box-shadow-1: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --box-shadow-2: -10px 20px 25px -5px rgb(0 0 0 / 0.1),
+    10px 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: var(--min-height-header) max-content max-content;
+  justify-items: stretch;
+}

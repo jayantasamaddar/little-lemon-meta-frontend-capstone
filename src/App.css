@@ -1,4 +1,134 @@
-.App {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+div,
+main,
+header,
+footer,
+section,
+article,
+li,
+a,
+p,
+input,
+select,
+textarea,
+table,
+thead,
+th,
+td,
+tr,
+tbody,
+tfoot {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+nav > ul > li,
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--color-full-black);
+}
+
+a:hover {
+  color: var(--color-black);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Markazi Text', serif;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.w-screen {
+  width: 100vh;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-xs {
+  font-size: 0.5rem;
+}
+
+.text-sm {
+  font-size: 0.75rem;
+}
+
+.text-standard {
+  font-size: 1rem;
+}
+
+.text-base {
+  font-size: 1.25rem;
+}
+
+.text-m {
+  font-size: 1.5rem;
+}
+
+.text-lg {
+  font-size: 1.75rem;
+}
+
+.text-xl {
+  font-size: 2rem;
+}
+
+.text-2xl {
+  font-size: 4rem;
+}
+
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+.center {
+  text-align: center;
+}
+
+.logo {
+  display: block;
+}
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +165,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */

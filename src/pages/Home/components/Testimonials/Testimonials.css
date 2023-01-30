@@ -1,0 +1,14 @@
+#testimonials {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background-color: grey;
+  padding: 2.25rem;
+}
+
+.testimonial-carousel {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 20px;
+}

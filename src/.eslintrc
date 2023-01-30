@@ -1,0 +1,10 @@
+{
+  "settings": {
+    "import/resolver": {
+      "node": [".js", ".jsx", ".ts", ".tsx"]
+    },
+    "parserOptions": {
+      "sourceType": "module"
+    }
+  }
+}
