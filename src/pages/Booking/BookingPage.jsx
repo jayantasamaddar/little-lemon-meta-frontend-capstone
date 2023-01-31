@@ -6,18 +6,22 @@ import './BookingPage.css';
 import { useNavigate } from 'react-router-dom';
 import { BookingForm } from './components';
 import { FormContextProvider } from '../../context';
+import { fetchAPI } from '../../utilities/dataAPIs';
 
 const STAGES = ['Reservation Details', 'Confirm Reservation'];
 
 export const BookingPage = () => {
   const [stage, setStage] = useState('Reservation Details');
 
-  const initializeTimes = () => {
-    return ['17:00', '18:00', '19:00', '20:00', '21:00', '22:00'];
-  };
+  const initializeTimes = () => fetchAPI(new Date());
 
   const updateTimes = (state, action) => {
-    return state;
+    switch (action.type) {
+      case 'bookingDate':
+        return fetchAPI(action.payload);
+      default:
+        break;
+    }
   };
 
   const [state, dispatch] = useReducer(updateTimes, initializeTimes());
@@ -45,7 +49,7 @@ export const BookingPage = () => {
     return;
   }, [stage, navigate]);
 
-  const handleSubmit = e => {
+  const submitForm = e => {
     e.preventDefault();
     console.log('');
   };
@@ -68,7 +72,7 @@ export const BookingPage = () => {
 
       <FormContextProvider value={{ availableTimes: state, dispatch }}>
         <section className="LL-ReservationFormContainer">
-          <BookingForm onSubmit={handleSubmit} />
+          <BookingForm onSubmit={submitForm} />
         </section>
       </FormContextProvider>
     </Main>

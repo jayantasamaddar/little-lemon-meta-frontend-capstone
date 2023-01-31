@@ -19,7 +19,6 @@ export const compareDates = (startDate, endDate, offsetDays = 0) => {
   if (!parseInt(offsetDays)) return d1 < d2;
   else {
     d1.setDate(d1.getDate() + Math.round(Math.max(offsetDays, 0)));
-    console.log(d1, d2);
     return d1 < d2;
   }
 };
@@ -106,3 +105,10 @@ export const roundTime = (minutes, factor) => {
 // console.log(roundTime('23:38', 15)); // 23:45
 // console.log(roundTime('23:52', 15)); // 23:45
 // console.log(roundTime('23:53', 15)); // 24:00
+
+export const normalizeAvailability = availableTimes =>
+  availableTimes?.map((t, i) => ({
+    id: i + 1,
+    label: t,
+    value: t,
+  }));

@@ -6,6 +6,7 @@ import {
   currentDateTime,
   withinReservationHours,
   roundTime,
+  normalizeAvailability,
 } from '../../../../utilities';
 import { useForm } from '../../../../context';
 
@@ -67,7 +68,7 @@ export const BookingForm = ({ onSubmit }) => {
     occasion: false,
   });
 
-  console.log({ values, isDirty, errors });
+  console.log({ values, isDirty, errors, availableTimes });
 
   const onFocus = ({ target }) => {
     setIsDirty(prev => ({ ...prev, [target.name]: true }));
@@ -93,7 +94,7 @@ export const BookingForm = ({ onSubmit }) => {
   const handleChange = ({ target }) => {
     const { id, name, type, value, required, min, max } = target;
 
-    // Set values. For time, round time to 15 minute slots
+    // Set values
     setValues(prev => ({
       ...prev,
       [name || id]: value,
@@ -119,6 +120,7 @@ export const BookingForm = ({ onSubmit }) => {
           [name]: 'You need to book at least a day in advance',
         }));
       }
+      dispatch({ type: 'bookingDate', payload: new Date(value) });
     }
 
     // Time Validatiom
@@ -189,20 +191,19 @@ export const BookingForm = ({ onSubmit }) => {
         errors={errors.bookingDate}
       />
 
-      <Textfield
-        label="Booking Time"
-        id="bookingTime"
-        name="bookingTime"
-        type="time"
-        required
-        onFocus={onFocus}
-        onBlur={onBlur}
-        onChange={handleChange}
-        value={values.bookingTime}
-        errors={errors.bookingTime}
-        min="17:00"
-        max="22:00"
-      />
+      {availableTimes && (
+        <Select
+          label="Booking Time"
+          id="bookingTime"
+          name="bookingTime"
+          required
+          placeholder="Choose a Booking Time Slot"
+          options={normalizeAvailability(availableTimes)}
+          onChange={handleChange}
+          value={values.bookingTime}
+          errors={errors.bookingTime}
+        />
+      )}
 
       <Textfield
         label="Number of Guests"

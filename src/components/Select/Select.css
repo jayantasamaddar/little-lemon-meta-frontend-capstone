@@ -13,6 +13,7 @@
   width: 100%;
   background-color: unset;
   border-bottom: 2px solid var(--color-primary);
+  font-family: 'Karla', sans-serif;
 }
 
 label.LL-SelectLabel {

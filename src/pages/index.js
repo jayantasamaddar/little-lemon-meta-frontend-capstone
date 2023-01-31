@@ -1,2 +1,2 @@
 export * from './Home';
-export * from './Reservation';
+export * from './Booking';

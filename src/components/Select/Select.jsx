@@ -81,8 +81,8 @@ export const Select = forwardRef(
                 --
               </Option>
             )}
-            {options.map(({ id, label, value }) => (
-              <Option key={id ?? value} value={value}>
+            {options?.map(({ id, label, value }, i) => (
+              <Option key={id ?? value ?? i} value={value}>
                 {label}
               </Option>
             ))}

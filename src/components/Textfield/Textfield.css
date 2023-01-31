@@ -12,6 +12,7 @@ input.LL-Textfield {
   border-bottom: 2px solid;
   border-bottom-color: var(--color-primary);
   transition: 0.2s ease-in-out;
+  font-family: 'Karla', sans-serif;
 }
 
 input[data-focus='true'] {

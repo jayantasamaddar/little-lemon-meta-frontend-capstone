@@ -10,7 +10,7 @@ export const Testimonials = ({ data }) => {
       <section className="LL-Testimonials-Carousel">
         {data.map(({ id, rating, name, review, image }) => (
           <Card
-            key={id}
+            key={`testimonial-card-${name.trim()}-${id}`}
             title="Testimonials"
             imagePosition="left"
             image={image}
@@ -21,8 +21,8 @@ export const Testimonials = ({ data }) => {
             <div className="LL-Testimonial-Rating flex">
               {Array.from(
                 { length: Math.round(Math.abs(Number(rating))) },
-                () => (
-                  <ReviewStar />
+                (v, i) => (
+                  <ReviewStar key={`reviewstar-${name.trim()}-${i}`} />
                 )
               )}
             </div>
