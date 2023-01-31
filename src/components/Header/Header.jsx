@@ -5,19 +5,16 @@ import {
   faUserCircle,
   faCartShopping,
 } from '@fortawesome/free-solid-svg-icons';
+import { Logo } from '../Logo';
 
 export const Header = () => {
   return (
     <header>
-      <div className="logo logo-header">
-        <img
-          src={
-            'https://ik.imagekit.io/zenius/Coursera/html-css/Asset_16_4x_nnQ67G1HkI.png?ik-sdk-version=javascript-1.4.3&updatedAt=1674426270946' ||
-            'https://via.placeholder.com/291x60?text=Logo'
-          }
-          alt="Little Lemon - Home"
-        />
-      </div>
+      <Logo
+        className="logo-header"
+        src="https://ik.imagekit.io/zenius/Coursera/html-css/Asset_16_4x_nnQ67G1HkI.png?ik-sdk-version=javascript-1.4.3&updatedAt=1674426270946"
+      />
+
       <nav>
         <ul className="menu-list">
           <li>

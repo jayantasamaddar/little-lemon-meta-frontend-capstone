@@ -1,3 +1,5 @@
+/** Variable Declarations */
+
 * {
   /** Colors */
   --color-primary: #495e57;
@@ -8,6 +10,8 @@
   --color-white: #ffffff;
   --color-black: #333333;
   --color-black-full: #000000;
+
+  /** Fonts */
 
   /** Height */
   --min-height-header: '80px';

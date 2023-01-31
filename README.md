@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# Booking App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Scenario
 
-## Available Scripts
+Currently, a visitor to the Little Lemon web app cannot reserve a table. Your task is to improve the app by allowing the user to enter data into the form so that they can complete their registration. Thus, you need to build a Booking Form component that has the following entries (form items):
 
-In the project directory, you can run:
+- **Date**
+- **Time**
+- **Number of guests**
+- **Occasion (Birthday, Anniversary)**
+- **Submit reservation button** (to submit the form)
 
-### `npm start`
+To do this, you need to implement a form in a controlled component named **BookingForm**.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# Instructions
 
-### `npm test`
+**Step 1**: Check the component and routes
+If you haven’t done so already, create the **BookingForm** and **BookingPage** components. The **BookingPage** will contain the **BookingForm** component, in addition to any additional content before and after the form.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> **Note**: Before proceeding to the next step, check that your routes and navigation bar are set up to allow navigation to the booking page.
 
-### `npm run build`
+**Step 2**: Code the form structure
+Next, you’ll need to build the form structure in the **BookingForm** component. You can use the following plain HTML5 implementation as a starting point, however, you should convert it to JSX so that you can later connect the input to the React state.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```js
+<form style="display: grid; max-width: 200px; gap: 20px">
+   <label for="res-date">Choose date</label>
+   <input type="date" id="res-date">
+   <label for="res-time">Choose time</label>
+   <select id="res-time ">
+      <option>17:00</option>
+      <option>18:00</option>
+      <option>19:00</option>
+      <option>20:00</option>
+      <option>21:00</option>
+      <option>22:00</option>
+   </select>
+   <label for="guests">Number of guests</label>
+   <input type="number" placeholder="1" min="1" max="10" id="guests">
+   <label for="occasion">Occasion</label>
+   <select id="occasion">
+      <option>Birthday</option>
+      <option>Anniversary</option>
+   </select>
+   <input type="submit" value="Make Your reservation">
+</form>
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+> **Note**: Keep in mind the difference between the **for** attribute in HTML and **htmlFor** in JSX. Also, remember to self-close all tags in JSX.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Step 3**: Code the form behavior
+Using what you already know about **events**, **effects** and **state** in React, update your form's code to keep track of its own state.
 
-### `npm run eject`
+- Define a state variable for field in the form.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Connect each **state** variable to the form fields using the value and **onChange** form element attributes.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- The options in the booking time field should be displayed from a list of available times. For now, create a stateful array in the component named **`availableTimes`** and use this state variable to populate the time select field options.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Tip: Use the **useState** function to declare the variable.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Now that the state is connected to the input elements, the form is ready to communicate with an API, a task you may complete in future.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Instructions: Testing
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Step 2: Test the **updateTimes** and **initializeTimes** functions
 
-### Code Splitting
+The next step is to validate the behavior of the updateTimes and **initializeTimes** reducer functions.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Write a unit test for the **initializeTimes** function to validate that it returns the correct expected value.
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Write a unit test for the **updateTimes** function to validate that it returns the same value that is provided in the state. This unit test is important as it will be updated later when the logic of changing the available times based on the selected date is implemented.

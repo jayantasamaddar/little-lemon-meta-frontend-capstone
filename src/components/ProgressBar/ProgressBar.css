@@ -1,0 +1,25 @@
+.progress-bar {
+  width: 100%;
+  height: 10px;
+}
+
+.progress-bar.border {
+  border: 1px solid var(--color-primary-2);
+}
+
+#progress {
+  position: absolute;
+  appearance: unset;
+  width: 0px;
+  height: 0px;
+  top: 0;
+  left: 0;
+}
+
+.progress-bar-indicator {
+  position: relative;
+  height: 100%;
+  background-color: var(--color-primary-2);
+  transform-origin: 0;
+  transition: 0.5s linear;
+}

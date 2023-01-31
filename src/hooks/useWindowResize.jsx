@@ -20,22 +20,3 @@ export const useWindowResize = () => {
 
   return size;
 };
-
-// const ResizeTracker = maxWidth => {
-//   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
-//   const [isMobile, setIsMobile] = React.useState(
-//     windowWidth < maxWidth ? true : false
-//   );
-
-//   useEffect(() => {
-//     window.addEventListener('resize', () => {
-//       const currentWidth = window.innerWidth;
-//       setWindowWidth(currentWidth);
-//       setIsMobile(currentWidth < maxWidth ? true : false);
-//     });
-//   }, [maxWidth]);
-
-//   return { windowWidth, isMobile };
-// };
-
-// export default ResizeTracker;

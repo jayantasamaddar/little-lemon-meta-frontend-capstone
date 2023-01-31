@@ -1,17 +1,22 @@
+import { useNavigate } from 'react-router-dom';
 import { Button, Heading } from '../../../../components';
 import './Hero.css';
 
 export const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="hero">
       <div className="hero-left">
-        <Heading tag="h1">Little Lemon</Heading>
-        <p>Chicago</p>
+        <Heading tag="h1" size="2xl">
+          Little Lemon
+        </Heading>
+        <p className="subtitle">Chicago</p>
         <p id="hero-desc">
           We are a family owned Mediterranean restaurant, focused on traditional
           recipes served with a modern twist.
         </p>
-        <Button id="hero-btn" primary>
+        <Button id="hero-btn" primary onClick={() => navigate('/reservations')}>
           Reserve a Table
         </Button>
       </div>

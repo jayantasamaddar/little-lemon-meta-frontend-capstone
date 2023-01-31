@@ -6,7 +6,18 @@ section.hero {
   gap: 100px;
   padding: 1.25rem 12%;
   max-width: 100%;
-  background-color: darkgray;
+  /* background-color: darkgray; */
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.hero-left h1 {
+  color: var(--color-primary-2);
+}
+
+.hero-left .subtitle {
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 .hero-left {
@@ -15,12 +26,14 @@ section.hero {
 }
 .hero-right {
   height: 400px;
+  border-radius: 8px;
 }
 
 .hero-right img {
   height: 100%;
   width: 450px;
-  object-fit: fill;
+  object-fit: cover;
+  border-radius: 1rem;
 }
 
 #hero-desc {
@@ -36,13 +49,12 @@ section.hero {
   }
   .hero-left {
     position: absolute;
-    width: 50%;
+    width: 70%;
     top: calc(25% - 2 * 1.25rem);
-    left: 25%;
+    left: 15%;
     padding: 1.25rem;
     text-align: center;
     background-color: rgba(0 0 0 / 0.5);
-    color: var(--color-white);
   }
   .hero-left h1 {
     text-align: center;

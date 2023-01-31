@@ -26,3 +26,14 @@ section.specials {
   justify-content: space-between;
   align-items: center;
 }
+
+.food-price {
+  color: var(--color-secondary);
+  font-weight: 700;
+}
+
+@media screen and (max-width: 1024px) {
+  .specials-items {
+    gap: 1.25rem;
+  }
+}

@@ -26,6 +26,19 @@ tbody,
 tfoot {
   margin: 0;
   padding: 0;
+  border: 0;
+  outline: 0;
+}
+
+/* input:focus,
+input:focus-visible,
+input:focus-within {
+  border: 0;
+  outline: 0;
+} */
+
+input {
+  background-color: transparent;
 }
 
 li {
@@ -50,6 +63,7 @@ h4,
 h5,
 h6 {
   font-family: 'Markazi Text', serif;
+  line-height: 1;
 }
 
 .w-full {

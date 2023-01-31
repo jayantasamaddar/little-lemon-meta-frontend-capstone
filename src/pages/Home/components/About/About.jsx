@@ -4,7 +4,7 @@ import './About.css';
 export const About = () => {
   return (
     <section id="about">
-      <Stack className="about-columns" gap="50px" justify="space-between">
+      <Stack className="about-columns" justify="space-between">
         <Stack.Item
           className="about-left-column"
           vertical
@@ -29,14 +29,14 @@ export const About = () => {
           <section id="about-images">
             <div id="about-first-image">
               <img
-                src="https://via.placeholder.com/272x338/A9A9A9/808080?text=Image+1"
-                alt="Image1"
+                src="https://ik.imagekit.io/zenius/Coursera/html-css/little-lemon-pastas_-BfcomSI5.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674426273746"
+                alt="Little Lemon - Burritos"
               />
             </div>
             <div id="about-second-image">
               <img
-                src="https://via.placeholder.com/272x338?text=Image+2"
-                alt="Image1"
+                src="https://ik.imagekit.io/zenius/Coursera/html-css/little-lemon-hero_szKmkAXsc.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675005773288"
+                alt="Little Lemon - Pastas"
               />
             </div>
           </section>

@@ -35,26 +35,34 @@ const testimonialsData = [
   {
     id: 1,
     rating: 5,
+    name: 'James Gordon',
     review: 'Lorem ipsum lorem upsung',
-    image: 'https://via.placeholder.com/100x100',
+    image:
+      'https://ik.imagekit.io/zenius/Coursera/html-css/little-lemon-testimonial-1_hP5ojsceu.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675153905015',
   },
   {
     id: 2,
     rating: 5,
+    name: 'Sheila Stone',
     review: 'Lorem ipsum lorem upsung',
-    image: 'https://via.placeholder.com/100x100',
+    image:
+      'https://ik.imagekit.io/zenius/Coursera/html-css/little-lemon-testimonial-2_2HL7LRpbth.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675153905011',
   },
   {
     id: 3,
     rating: 5,
+    name: 'Abigail Sharp',
     review: 'Lorem ipsum lorem upsung',
-    image: 'https://via.placeholder.com/100x100',
+    image:
+      'https://ik.imagekit.io/zenius/Coursera/html-css/little-lemon-testimonial-3_vBcNR58S4.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675153904991',
   },
   {
     id: 4,
     rating: 5,
+    name: 'Thomas Chang',
     review: 'Lorem ipsum lorem upsung',
-    image: 'https://via.placeholder.com/100x100',
+    image:
+      'https://ik.imagekit.io/zenius/Coursera/html-css/little-lemon-testimonial-4_AB23rmZoI.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675153905002',
   },
 ];
 

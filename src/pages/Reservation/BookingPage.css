@@ -1,0 +1,16 @@
+.LL-ReservationFormNavigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  color: var(--color-white);
+  background-color: var(--color-primary);
+}
+
+.LL-ReservationFormNavigation button.btn-unstyled {
+  color: var(--color-white);
+}
+
+.LL-ReservationFormContainer {
+  padding: 2.25rem;
+}

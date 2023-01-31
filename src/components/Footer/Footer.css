@@ -12,6 +12,17 @@ footer {
   flex-wrap: wrap;
 }
 
-footer section {
+footer section,
+.logo.logo-footer {
   padding: 0 40px;
+}
+
+footer section[class^='footer-'] {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+footer section[class^='footer-'] nav > ul > li {
+  padding: 4px 0;
 }

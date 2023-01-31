@@ -1,14 +1,24 @@
 #testimonials {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  background-color: grey;
-  padding: 2.25rem;
+  gap: 2.25rem;
+  background-color: var(--color-off-white);
+  padding: 4.5rem 2.25rem;
 }
 
-.testimonial-carousel {
+.LL-Testimonials-Carousel {
   display: flex;
   width: 100%;
   justify-content: center;
+  align-items: center;
   gap: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+  .LL-Testimonials-Carousel {
+    flex-wrap: wrap;
+  }
+  .LL-Testimonials-Carousel .card {
+    flex-basis: 40%;
+  }
 }

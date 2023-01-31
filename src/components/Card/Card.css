@@ -2,7 +2,7 @@ article.card {
   display: flex;
   flex-direction: column;
   box-shadow: var(--box-shadow-2);
-  background-color: var(--color-white);
+  background-color: var(--color-off-white);
   flex-wrap: wrap;
 }
 
@@ -34,4 +34,10 @@ article.card {
   flex-direction: column;
   gap: 1.25rem;
   padding: 1.25rem;
+}
+
+@media only screen and (max-width: 824px) {
+  article.card {
+    width: 100% !important;
+  }
 }

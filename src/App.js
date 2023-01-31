@@ -9,7 +9,7 @@ import {
 import { AppProvider, ThemeProvider } from './context';
 import { Header, Footer } from './components';
 import './App.css';
-import { Home, NewReservation } from './pages';
+import { Home, BookingPage } from './pages';
 
 const Root = () => {
   return (
@@ -25,7 +25,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />}>
       <Route index element={<Home />} />
-      <Route path="reservations" element={<NewReservation />} />
+      <Route path="reservations" element={<BookingPage />} />
     </Route>
   )
 );

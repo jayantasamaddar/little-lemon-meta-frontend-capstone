@@ -1,1 +1,1 @@
-export * from './NewReservation';
+export * from './BookingPage';

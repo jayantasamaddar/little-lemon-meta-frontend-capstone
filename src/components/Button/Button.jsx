@@ -1,6 +1,7 @@
 import './Button.css';
 
 export const Button = ({
+  id,
   className,
   primary,
   outline,
@@ -8,10 +9,17 @@ export const Button = ({
   disabled,
   children,
   onClick,
+  unstyled,
+  type = 'button',
 }) => {
   const basicProps = {
-    className: 'btn' + (className ? ` ${className}` : ''),
+    id,
+    className: unstyled
+      ? 'btn-unstyled'
+      : 'btn' + (className ? ` ${className}` : ''),
     onClick,
+    type,
+    role: 'button',
   };
 
   basicProps.className += primary ? ' primary' : '';

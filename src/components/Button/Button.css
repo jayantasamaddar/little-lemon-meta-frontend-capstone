@@ -10,21 +10,32 @@ button {
 }
 
 .btn {
-  padding: 16px;
+  padding: 1rem;
   min-width: 85px;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   font-weight: 700;
+  border: 1px solid;
+  border-color: var(--color-black-full);
+  background-color: var(--color-black-full);
+  color: var(--color-white);
+  box-shadow: var(--box-shadow-1);
 }
 
-.btn.primary {
-  background-color: black;
-  color: white;
-  border: 1px solid black;
-}
-
-.btn.primary:hover {
+.btn:hover {
   background-color: var(--color-primary-2);
   color: var(--color-black-full);
   border-color: var(--color-primary-2);
   transition: 0.3s ease-in-out;
+}
+
+.btn.primary {
+  border-color: var(--color-primary-2);
+  background-color: var(--color-primary-2);
+  color: var(--color-black-full);
+}
+
+.btn.primary:hover {
+  border-color: var(--color-black-full);
+  background-color: var(--color-black-full);
+  color: var(--color-white);
 }

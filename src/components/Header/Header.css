@@ -8,16 +8,14 @@ header {
   height: 80px;
   margin: 0;
   padding: 0;
-  background-color: gray;
+  /* background-color: gray; */
+  background-color: var(--color-white);
   box-shadow: var(--box-shadow-1);
   z-index: 9999;
 }
 
-.logo-header {
-  display: block;
-  height: 60px;
+.logo.logo-header {
   margin-left: 12%;
-  cursor: pointer;
 }
 
 .logo-header img {

@@ -1,0 +1,17 @@
+label.LL-Label {
+  padding: 0 1.25rem;
+  color: var(--color-black);
+  /* position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; */
+  position: absolute;
+  transform: translateY(0.25rem);
+  transition: 0.2s ease-out;
+}
+
+.LL-Label.error {
+  color: red;
+  transition: 0.2s ease-out;
+}
