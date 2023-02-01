@@ -5,7 +5,7 @@ import React from 'react';
 export const ReviewStar = () => {
   return (
     <div className="LL-ReviewStar">
-      <img src={Star} alt="Review Star" height={10} />
+      <img src={Star} alt="Review Star" height={15} />
     </div>
   );
 };

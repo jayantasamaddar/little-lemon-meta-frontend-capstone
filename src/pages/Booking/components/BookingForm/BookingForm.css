@@ -1,3 +1,8 @@
+form#LL-BookingForm {
+  width: 100%;
+  flex-basis: 50%;
+}
+
 button#btn-reservation {
   margin-left: 1.25rem !important;
 }

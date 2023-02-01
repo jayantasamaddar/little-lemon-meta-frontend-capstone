@@ -26,7 +26,7 @@ export const Testimonials = ({ data }) => {
                 )
               )}
             </div>
-            <div className="LL-Testimonial-Review">{review}</div>
+            <p className="LL-Testimonial-Review">{review}</p>
           </Card>
         ))}
       </section>

@@ -1,0 +1,15 @@
+div.LL-Backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0;
+  border: 0;
+  margin: 0;
+  background-color: var(--color-primary-2);
+  opacity: 0.5;
+  width: 100vw;
+  height: 100%;
+  z-index: 9999;
+}

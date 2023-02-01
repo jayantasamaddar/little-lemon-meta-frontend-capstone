@@ -10,19 +10,20 @@ footer {
   height: 100%;
   background-color: gray;
   flex-wrap: wrap;
+  box-shadow: var(--box-shadow-3);
 }
 
-footer section,
-.logo.logo-footer {
+footer section:not(#LL-SocialMediaWidget),
+.LL-Logo.LL-FooterLogo {
   padding: 0 40px;
 }
 
-footer section[class^='footer-'] {
+footer section[class^='LL-Footer'] {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
 }
 
-footer section[class^='footer-'] nav > ul > li {
+.LL-FooterNavigation > ul > li {
   padding: 4px 0;
 }

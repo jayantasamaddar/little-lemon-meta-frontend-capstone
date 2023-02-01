@@ -11,12 +11,12 @@ export const Logo = ({
   const navigate = useNavigate();
   return (
     <div
-      className={`logo ${className ?? ''}`}
+      className={`logo LL-Logo ${className ?? ''}`}
       onClick={() => navigate('/')}
       style={{ height, width }}
       role="banner"
     >
-      <img src={src} alt="Little Lemon - Home" />
+      <img src={src} alt="Little Lemon - Logo" title="Little Lemon - Home" />
     </div>
   );
 };

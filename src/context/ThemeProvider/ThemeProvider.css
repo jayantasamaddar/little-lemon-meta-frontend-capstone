@@ -10,18 +10,24 @@
   --color-white: #ffffff;
   --color-black: #333333;
   --color-black-full: #000000;
+  --color-alert-success: #68f276;
+  --color-alert-error: #ff3333;
 
   /** Fonts */
 
-  /** Height */
-  --min-height-header: '80px';
-  --min-height-footer: '80px';
+  /** Responsive-Height */
+  --min-height-header: 80px;
+  --min-height-footer: 80px;
+
+  /** Responsive-Width **/
+  --header-switch: 768px;
 
   /** Box Shadow */
   --box-shadow-1: 0 10px 15px -3px rgb(0 0 0 / 0.1),
     0 4px 6px -4px rgb(0 0 0 / 0.1);
   --box-shadow-2: -10px 20px 25px -5px rgb(0 0 0 / 0.1),
     10px 8px 10px -6px rgb(0 0 0 / 0.1);
+  --box-shadow-3: 0px -10px 10px -3px rgb(50 50 50 / 0.15);
 }
 
 .container {
@@ -31,6 +37,26 @@
   height: 100%;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: var(--min-height-header) max-content max-content;
+  grid-template-rows: auto;
   justify-items: stretch;
+}
+
+/** Animations **/
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

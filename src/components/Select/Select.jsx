@@ -10,7 +10,7 @@ export const Select = forwardRef(
       name,
       className,
       label,
-      required,
+      required = false,
       value,
       options,
       placeholder,
@@ -37,6 +37,7 @@ export const Select = forwardRef(
     const error_id = errors ? `${select_id}-error` : null;
 
     const handleChange = e => {
+      e.target.focus();
       setIsDirty(true);
       onChange && onChange(e);
     };
@@ -69,6 +70,7 @@ export const Select = forwardRef(
           id={label_id}
           className={`LL-SelectLabel ${error_id ? 'error' : ''}`}
           htmlFor={select_id}
+          required={required}
         >
           {label}
         </Label>

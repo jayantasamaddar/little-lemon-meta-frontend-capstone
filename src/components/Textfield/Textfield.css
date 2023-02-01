@@ -13,6 +13,8 @@ input.LL-Textfield {
   border-bottom-color: var(--color-primary);
   transition: 0.2s ease-in-out;
   font-family: 'Karla', sans-serif;
+  display: flex;
+  gap: 10px;
 }
 
 input[data-focus='true'] {
@@ -20,7 +22,7 @@ input[data-focus='true'] {
 }
 
 input.error {
-  border-bottom-color: red;
+  border-bottom-color: var(--color-alert-error);
 }
 
 label[data-focus='true'],

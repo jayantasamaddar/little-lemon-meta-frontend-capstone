@@ -1,9 +1,8 @@
-import { useState } from 'react';
+import { useCallback } from 'react';
 import { Textfield, Button, Select } from '../../../../components';
 import './BookingForm.css';
 import {
   compareDates,
-  currentDateTime,
   withinReservationHours,
   roundTime,
   normalizeAvailability,
@@ -29,141 +28,133 @@ const OCCASIONS_LIST = [
 ];
 
 export const BookingForm = ({ onSubmit }) => {
-  const { availableTimes, dispatch } = useForm() ?? {
-    availableTimes: [],
-    dispatch: () => {},
+  const {
+    state: { availableTimes, formData, formErrors, isDirty },
+    dispatch,
+  } = useForm() ?? {
+    state: { availableTimes: [], formdata: {}, formErrors: {}, isDirty: {} },
   };
+
+  console.log({
+    stateInForm: { availableTimes, formData, formErrors, isDirty },
+  });
 
   const test_id =
     process.env.REACT_APP_STAGE === 'DEVELOPMENT'
       ? { 'data-testid': 'reservation-form' }
       : {};
 
-  // Update Form to dispatch when date form field is changed
+  const handleCheck = () => {
+    console.log('');
+  };
 
-  const [values, setValues] = useState({
-    firstName: '',
-    lastName: '',
-    bookingDate: currentDateTime(1).date,
-    bookingTime: '17:00',
-    guests: 1,
-    occasion: '',
-  });
-
-  const [errors, setErrors] = useState({
-    firstName: '',
-    lastName: '',
-    bookingDate: '',
-    bookingTime: '',
-    guests: '',
-    occasion: '',
-  });
-
-  const [isDirty, setIsDirty] = useState({
-    firstName: false,
-    lastName: false,
-    bookingDate: false,
-    bookingTime: false,
-    guests: false,
-    occasion: false,
-  });
-
-  console.log({ values, isDirty, errors, availableTimes });
+  /**********************************************************************************/
+  /** With Form Context */
+  /**********************************************************************************/
 
   const onFocus = ({ target }) => {
-    setIsDirty(prev => ({ ...prev, [target.name]: true }));
+    dispatch({
+      type: 'setIsDirty',
+      payload: { [target.name || target.id]: true },
+    });
   };
 
   const onBlur = ({ target }) => {
     // Required validation when field is dirty
     const { name, type, value, required } = target;
     if (isDirty && value === '' && required) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: `${name} is a required field!`,
-      }));
-    }
-    if (type === 'time') {
-      setValues(prev => ({
-        ...prev,
-        [name]: roundTime(value, 15),
-      }));
-    }
-  };
+      dispatch({
+        type: 'setFormErrors',
+        payload: { [name]: `${name} is a required field!` },
+      });
 
-  const handleChange = ({ target }) => {
-    const { id, name, type, value, required, min, max } = target;
-
-    // Set values
-    setValues(prev => ({
-      ...prev,
-      [name || id]: value,
-    }));
-
-    // Required validation for all fields
-    if (required && value !== '') {
-      // Reset errors for all fields
-      setErrors(prev => ({
-        ...prev,
-        [name]: '',
-      }));
-    } else {
-      // Show Error for all fields
-      setErrors(prev => ({ ...prev, [name]: `${name} is a required field!` }));
-    }
-
-    // Date Validation
-    if (type === 'date') {
-      if (!compareDates(Date.now(), value, 1)) {
-        setErrors(prev => ({
-          ...prev,
-          [name]: 'You need to book at least a day in advance',
-        }));
-      }
-      dispatch({ type: 'bookingDate', payload: new Date(value) });
-    }
-
-    // Time Validatiom
-    if (type === 'time') {
-      // Whether selected time is within scheduled hours
-      if (!withinReservationHours(min, max, value)) {
-        setErrors(prev => ({
-          ...prev,
-          [name]: `Reservation hours are between ${min} and ${max}!`,
-        }));
-        // Reset value
-        setValues(prev => ({ ...prev, [name]: min }));
-        // Reset error after 5 seconds
-        const timeoutError = setTimeout(
-          () => setErrors(prev => ({ ...prev, [name]: '' })),
-          5000
-        );
-        timeoutError();
-        clearTimeout(timeoutError);
+      if (type === 'time') {
+        dispatch({
+          type: 'setFormData',
+          payload: { [name]: roundTime(value, 15) },
+        });
       }
     }
   };
 
-  const handleCheck = () => {
-    console.log('');
-  };
+  const handleChange = useCallback(
+    ({ target }) => {
+      const { id, name, type, value, required, min, max } = target;
+
+      // Set values
+      dispatch({ type: 'setFormData', payload: { [name || id]: value } });
+
+      // Required validation for all fields
+      if (required && value === '') {
+        // Show Error for all fields
+        dispatch({
+          type: 'setFormErrors',
+          payload: { [name || id]: `${name || id} is a required field!` },
+        });
+      } else {
+        // Reset errors for all fields
+        dispatch({ type: 'setFormErrors', payload: { [name || id]: '' } });
+      }
+
+      // Date Validation
+      if (id === 'bookingDate') {
+        if (!compareDates(Date.now(), value, 1)) {
+          dispatch({
+            type: 'setFormErrors',
+            payload: { [name]: 'You need to book at least a day in advance' },
+          });
+        }
+        dispatch({ type: 'setAvailableTimes', payload: new Date(value) });
+      }
+
+      // Time Validatiom
+      if (type === 'time') {
+        // Whether selected time is within scheduled hours
+        if (!withinReservationHours(min, max, value)) {
+          dispatch({
+            type: 'setFormErrors',
+            payload: {
+              [name]: `Reservation hours are between ${min} and ${max}!`,
+            },
+          });
+
+          // Reset value
+          dispatch({ type: 'setFormData', payload: { [name]: min } });
+          // Reset error after 5 seconds
+          const timeoutError = setTimeout(
+            () => dispatch({ type: 'setFormData', payload: { [name]: '' } }),
+            5000
+          );
+          timeoutError();
+          clearTimeout(timeoutError);
+        }
+      }
+    },
+    [dispatch]
+  );
 
   /**********************************************************************************/
   /** Render Form JSX */
   /**********************************************************************************/
 
   return (
-    <form onSubmit={onSubmit} {...test_id}>
+    <form
+      id="LL-BookingForm"
+      onSubmit={onSubmit}
+      {...test_id}
+      aria-label="Little Lemon - Booking Form"
+    >
       <Textfield
         label="First Name"
         id="firstName"
         name="firstName"
         type="text"
         required
+        onFocus={onFocus}
         onBlur={onBlur}
         onChange={handleChange}
-        value={values.firstName}
-        errors={errors.firstName}
+        value={formData?.firstName ?? ''}
+        errors={formErrors.firstName}
       />
 
       <Textfield
@@ -172,10 +163,11 @@ export const BookingForm = ({ onSubmit }) => {
         name="lastName"
         type="text"
         required
+        onFocus={onFocus}
         onBlur={onBlur}
         onChange={handleChange}
-        value={values.lastName}
-        errors={errors.lastName}
+        value={formData?.lastName ?? ''}
+        errors={formErrors.lastName}
       />
 
       <Textfield
@@ -187,23 +179,22 @@ export const BookingForm = ({ onSubmit }) => {
         onFocus={onFocus}
         onBlur={onBlur}
         onChange={handleChange}
-        value={values.bookingDate}
-        errors={errors.bookingDate}
+        value={formData?.bookingDate ?? ''}
+        errors={formErrors.bookingDate}
       />
 
-      {availableTimes && (
-        <Select
-          label="Booking Time"
-          id="bookingTime"
-          name="bookingTime"
-          required
-          placeholder="Choose a Booking Time Slot"
-          options={normalizeAvailability(availableTimes)}
-          onChange={handleChange}
-          value={values.bookingTime}
-          errors={errors.bookingTime}
-        />
-      )}
+      <Select
+        label="Booking Time"
+        id="bookingTime"
+        name="bookingTime"
+        required
+        options={normalizeAvailability(availableTimes)}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onChange={handleChange}
+        value={formData?.bookingTime ?? ''}
+        errors={formErrors.bookingTime}
+      />
 
       <Textfield
         label="Number of Guests"
@@ -214,8 +205,8 @@ export const BookingForm = ({ onSubmit }) => {
         onFocus={onFocus}
         onBlur={onBlur}
         onChange={handleChange}
-        value={values.guests}
-        errors={errors.guests}
+        value={formData?.guests ?? '1'}
+        errors={formErrors.guests}
         min="1"
         max="10"
       />
@@ -227,12 +218,19 @@ export const BookingForm = ({ onSubmit }) => {
         placeholder="Choose an Occasion"
         dirtyPlaceholder="No Special Occasion"
         options={OCCASIONS_LIST}
+        onFocus={onFocus}
+        onBlur={onBlur}
         onChange={handleChange}
-        value={values.occasion}
-        errors={errors.occasion}
+        value={formData?.occasion ?? ''}
+        errors={formErrors.occasion}
       />
 
-      <Button id="btn-reservation" type="submit" onClick={handleCheck}>
+      <Button
+        id="btn-reservation"
+        type="submit"
+        onClick={handleCheck}
+        disabled={Object.values(formErrors).find(val => val.length > 0)}
+      >
         View Availability
       </Button>
     </form>

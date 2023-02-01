@@ -1,31 +1,75 @@
+import { forwardRef } from 'react';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { Icon } from '../Icon';
 import './Button.css';
 
-export const Button = ({
-  id,
-  className,
-  primary,
-  outline,
-  alert,
-  disabled,
-  children,
-  onClick,
-  unstyled,
-  type = 'button',
-}) => {
-  const basicProps = {
-    id,
-    className: unstyled
-      ? 'btn-unstyled'
-      : 'btn' + (className ? ` ${className}` : ''),
-    onClick,
-    type,
-    role: 'button',
-  };
+export const Button = forwardRef(
+  (
+    {
+      id,
+      className,
+      type = 'button',
+      primary,
+      outline,
+      alert,
+      disabled,
+      children,
+      onClick,
+      onFocus,
+      onBlur,
+      onKeyUp,
+      unstyled,
+      loading,
+      ariaLabel,
+      ariaControls,
+      ariaChecked,
+      ariaExpanded,
+      ariaDescribedBy,
+      ariaPressed,
+    },
+    ref
+  ) => {
+    const coreProps = {
+      id,
+      className: unstyled
+        ? 'btn-unstyled'
+        : 'btn' + (className ? ` ${className}` : ''),
+      type,
+      role: 'button',
+      disabled,
+      ref,
+    };
 
-  basicProps.className += primary ? ' primary' : '';
-  basicProps.className += outline ? ' outline' : '';
-  basicProps.className += alert ? ' alert' : '';
-  basicProps.className += disabled ? ' disabled' : '';
+    coreProps.className += primary ? ' btn-primary' : '';
+    coreProps.className += outline ? ' btn-outline' : '';
+    coreProps.className += alert ? ' btn-alert' : '';
+    coreProps.className += disabled ? ' btn-disabled' : '';
 
-  return <button {...basicProps}>{children}</button>;
-};
+    const interactiveProps = {
+      onFocus,
+      onBlur,
+      onClick,
+      onKeyUp,
+    };
+
+    const loadingMarkup = loading ? <Icon src={faSpinner} size="2x" /> : null;
+
+    const accessibilityProps = {
+      'aria-disabled': disabled ? true : undefined,
+      'aria-busy': loading ? true : undefined,
+      'aria-label': ariaLabel,
+      'aria-controls': ariaControls,
+      'aria-describedby': ariaDescribedBy,
+      'aria-pressed': ariaPressed,
+      'aria-checked': ariaChecked,
+      'aria-expanded': ariaExpanded,
+    };
+
+    return (
+      <button {...coreProps} {...interactiveProps} {...accessibilityProps}>
+        {loadingMarkup}
+        <span className="LL-ButtonText">{children}</span>
+      </button>
+    );
+  }
+);

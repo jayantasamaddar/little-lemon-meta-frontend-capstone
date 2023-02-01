@@ -10,7 +10,7 @@ export const Specials = ({ data, itemWidth }) => {
         <Button>Online Menu</Button>
       </section>
 
-      <section className="specials-items">
+      <section id="LL-Section-SpecialItems">
         {data.map(({ id, title, price, description, image }) => (
           <Card key={id} title={title} width={itemWidth} image={image}>
             <div className="card-header card-variant-food">
@@ -21,8 +21,10 @@ export const Specials = ({ data, itemWidth }) => {
             </div>
             <div className="food-desc">{description}</div>
 
-            <div className="card-footer card-variant-food">
-              <Button>Order</Button>
+            <div className="card-footer LL-OrderButton">
+              <Button class="btn-order" outline>
+                Order
+              </Button>
             </div>
           </Card>
         ))}

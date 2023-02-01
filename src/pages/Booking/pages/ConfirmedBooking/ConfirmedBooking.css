@@ -1,0 +1,14 @@
+.LL-BookingConfirmation {
+  padding: 0 3.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+#LL-BookingDetails {
+  padding: 3.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+  text-align: center;
+}

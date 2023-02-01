@@ -31,7 +31,7 @@ export const Textfield = forwardRef(
       name,
       label,
       placeholder,
-      required,
+      required = false,
       value,
       min,
       max,
@@ -53,6 +53,7 @@ export const Textfield = forwardRef(
   ) => {
     const [focus, setFocus] = useState(false);
     const [isEmpty, setIsEmpty] = useState(true);
+    const [isDirty, setIsDirty] = useState(false);
 
     const inputRef = useRef(null);
     const textAreaRef = useRef(null);
@@ -83,6 +84,7 @@ export const Textfield = forwardRef(
     /********************************************************************************/
     const handleFocus = useCallback(
       e => {
+        setIsDirty(true);
         setFocus(true);
         if (selectOnFocus) {
           const target = multiline ? textAreaRef.current : inputRef.current;
@@ -114,8 +116,10 @@ export const Textfield = forwardRef(
         : undefined,
     };
 
+    const additionalClasses = isDirty && error_id ? 'error' : '';
+
     const elementProps = {
-      className: `LL-Textfield ${className ?? ''} ${error_id ? 'error' : ''}`,
+      className: `LL-Textfield ${additionalClasses}`,
       id: input_id,
       type: VALID_INPUT_TYPES.includes(type) ? type : 'text',
       ref: multiline ? textAreaRef : inputRef,
@@ -143,9 +147,10 @@ export const Textfield = forwardRef(
       <div className={`LL-TextfieldContainer ${className ?? ''}`}>
         {!labelHidden && label && (
           <Label
-            className={`LL-TextfieldLabel ${error_id ? 'error' : ''}`}
+            className={`LL-TextfieldLabel ${additionalClasses}`}
             id={label_id}
             htmlFor={input_id}
+            required={required}
             {...dataProps}
           >
             {label}
@@ -154,7 +159,7 @@ export const Textfield = forwardRef(
         <Input {...elementProps} {...accessibilityProps} {...dataProps} />
 
         {/** Error Handling */}
-        {error_id && (
+        {isDirty && error_id && (
           <section className="LL-TextfieldErrors">
             <Error id={error_id}>{errors}</Error>
           </section>

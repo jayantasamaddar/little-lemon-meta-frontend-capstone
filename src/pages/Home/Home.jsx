@@ -36,7 +36,8 @@ const testimonialsData = [
     id: 1,
     rating: 5,
     name: 'James Gordon',
-    review: 'Lorem ipsum lorem upsung',
+    review:
+      'The falafel platter at Little Lemon is delicious, with perfectly seasoned crispy balls and a variety of tangy sauces.',
     image:
       'https://ik.imagekit.io/zenius/Coursera/html-css/little-lemon-testimonial-1_hP5ojsceu.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675153905015',
   },
@@ -44,7 +45,8 @@ const testimonialsData = [
     id: 2,
     rating: 5,
     name: 'Sheila Stone',
-    review: 'Lorem ipsum lorem upsung',
+    review:
+      'The hummus and pita are top-notch, with creamy and smooth hummus and warm, fluffy pita.',
     image:
       'https://ik.imagekit.io/zenius/Coursera/html-css/little-lemon-testimonial-2_2HL7LRpbth.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675153905011',
   },
@@ -52,7 +54,8 @@ const testimonialsData = [
     id: 3,
     rating: 5,
     name: 'Abigail Sharp',
-    review: 'Lorem ipsum lorem upsung',
+    review:
+      'The grilled chicken kebab at the is juicy and packed with flavor, served with a side of perfectly seasoned rice.',
     image:
       'https://ik.imagekit.io/zenius/Coursera/html-css/little-lemon-testimonial-3_vBcNR58S4.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675153904991',
   },
@@ -60,7 +63,8 @@ const testimonialsData = [
     id: 4,
     rating: 5,
     name: 'Thomas Chang',
-    review: 'Lorem ipsum lorem upsung',
+    review:
+      'The stuffed grape leaves at the Little Lemon grill are a must-try, with a delicate and tangy filling wrapped in a tender grape leaf.',
     image:
       'https://ik.imagekit.io/zenius/Coursera/html-css/little-lemon-testimonial-4_AB23rmZoI.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675153905002',
   },

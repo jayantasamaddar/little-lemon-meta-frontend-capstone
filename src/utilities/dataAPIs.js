@@ -24,3 +24,6 @@ export const fetchAPI = function (date) {
 export const submitAPI = function (formData) {
   return true;
 };
+
+export const generateBookingID = () =>
+  Math.round(Math.random() * Math.pow(10, 16)).toString(16);

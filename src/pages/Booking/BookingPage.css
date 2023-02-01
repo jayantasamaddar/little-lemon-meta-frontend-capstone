@@ -1,4 +1,4 @@
-.LL-ReservationFormNavigation {
+.LL-BookingPageNavigation {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7,10 +7,37 @@
   background-color: var(--color-primary);
 }
 
-.LL-ReservationFormNavigation button.btn-unstyled {
+.LL-BookingPageNavigation h1 {
+  width: 100%;
+}
+
+.LL-BookingPageNavigation button.btn-unstyled {
   color: var(--color-white);
 }
 
-.LL-ReservationFormContainer {
+.LL-BookingPageContainer {
+  width: 100%;
   padding: 2.25rem;
+}
+
+#LL-BookingPageHero {
+  display: none;
+  flex-basis: 50%;
+  box-shadow: var(--box-shadow-2);
+}
+
+#LL-BookingPageHero img {
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+/** For larger screens */
+@media only screen and (min-width: 960px) {
+  .LL-BookingPageContainer {
+    display: flex;
+    gap: 2.25rem;
+  }
+  #LL-BookingPageHero {
+    display: block;
+  }
 }

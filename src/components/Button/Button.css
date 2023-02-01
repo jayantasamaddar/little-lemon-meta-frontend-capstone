@@ -10,8 +10,11 @@ button {
 }
 
 .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 1rem;
-  min-width: 85px;
+  min-width: 100px;
   border-radius: 0.5rem;
   font-weight: 700;
   border: 1px solid;
@@ -28,14 +31,29 @@ button {
   transition: 0.3s ease-in-out;
 }
 
-.btn.primary {
+.btn.btn-primary,
+.btn.btn-outline:hover {
   border-color: var(--color-primary-2);
   background-color: var(--color-primary-2);
   color: var(--color-black-full);
 }
 
-.btn.primary:hover {
+.btn.btn-primary:hover {
   border-color: var(--color-black-full);
   background-color: var(--color-black-full);
   color: var(--color-white);
+}
+
+.btn.btn-outline {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background-color: var(--color-white);
+}
+
+button.btn:disabled,
+button.btn:disabled:hover {
+  background-color: gray;
+  border-color: gray;
+  color: darkgray;
+  cursor: default;
 }

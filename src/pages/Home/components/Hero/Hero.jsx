@@ -16,7 +16,12 @@ export const Hero = () => {
           We are a family owned Mediterranean restaurant, focused on traditional
           recipes served with a modern twist.
         </p>
-        <Button id="hero-btn" primary onClick={() => navigate('/reservations')}>
+        <Button
+          ariaLabel="Reserve a Table"
+          id="hero-btn"
+          primary
+          onClick={() => navigate('/bookings')}
+        >
           Reserve a Table
         </Button>
       </div>

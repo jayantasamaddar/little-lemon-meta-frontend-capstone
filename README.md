@@ -104,3 +104,121 @@ The next step is to validate the behavior of the updateTimes and **initializeTim
 - **Step 3**: Test the behavior
 
   Run your web app and check that the available times on the booking form change when you select a different date.
+
+---
+
+# Instructions - Booking Confirmation Page
+
+**Step 1**: Set up a booking confirmation page
+
+Create a component named ConfirmedBooking that will represent the booking confirmation page.
+
+Add JSX to display a message that the booking has been confirmed.
+
+Add a route that will allow navigation to the booking confirmation page.
+
+**Step 2**: Set up the function for submitting the form
+In the Main component, set up a function named submitForm that accepts the form data as a parameter and will submit it to the submitAPI (formData) API set up in the previous exercise.
+
+If the submitAPI(formData) API call returns true, navigate to the booking confirmed page.
+
+Tip: You can use the useNavigate() hook to navigate via code.
+
+**Step 3**: Update the submit event handler
+Pass the submitForm function to the BookingForm component via props.
+
+Update the button submit event handler to call the submitForm function, passing the form data as a parameter.
+
+Step 3: Test the app
+Run the app and verify that the booking confirmation page is displayed when you submit the form.
+
+---
+
+# About Me
+
+About Us: Little Lemon is a family-owned Mediterranean restaurant that blends traditional recipes with a modern twist. Our goal is to provide our customers with a unique dining experience that will take them on a culinary journey through the Mediterranean.
+
+We use only the freshest ingredients to bring you authentic flavors that will tantalize your taste buds. Our menu is inspired by our family’s traditional recipes and has been passed down through generations. Our chefs use these recipes as a foundation, but add a contemporary touch to bring our dishes to life.
+
+In addition to dining in, we also offer an online ordering facility for those who prefer to enjoy our food in the comfort of their own home. Our online ordering system is easy to use and provides a quick and convenient way to order your favorite Little Lemon dishes.
+
+We also have tables available for booking, so whether it's for a special occasion or just a night out with friends, Little Lemon is the perfect venue for your next dining experience.
+
+At Little Lemon, we strive to provide an exceptional dining experience that is both memorable and delicious. Come visit us and taste the difference that tradition and innovation can bring to your plate.
+
+```json
+[
+  {
+    "id": 1,
+    "recipe_name": "Moussaka",
+    "description": "A layered dish with eggplant, ground beef, and a creamy béchamel sauce.",
+    "price": "$15"
+  },
+  {
+    "id": 2,
+    "recipe_name": "Falafel",
+    "description": "Crunchy balls made from ground chickpeas and spices, served with tahini sauce.",
+    "price": "$10"
+  },
+  {
+    "id": 3,
+    "recipe_name": "Tabbouleh",
+    "description": "A salad with parsley, mint, tomatoes, and bulgur wheat, dressed with lemon and olive oil.",
+    "price": "$12"
+  },
+  {
+    "id": 4,
+    "recipe_name": "Baklava",
+    "description": "A sweet pastry with layers of phyllo dough and honey syrup, filled with ground nuts.",
+    "price": "$7"
+  },
+  {
+    "id": 5,
+    "recipe_name": "Lamb Kofta",
+    "description": "Minced lamb skewers with spices, served with a tomato sauce.",
+    "price": "$18"
+  },
+  {
+    "id": 6,
+    "recipe_name": "Hummus",
+    "description": "A creamy dip made from chickpeas, tahini, lemon, and garlic.",
+    "price": "$8"
+  },
+  {
+    "id": 7,
+    "recipe_name": "Bouillabaisse",
+    "description": "A fish stew with a tomato base, served with crusty bread.",
+    "price": "$20"
+  },
+  {
+    "id": 8,
+    "recipe_name": "Ratatouille",
+    "description": "A stewed vegetable dish with eggplant, bell peppers, zucchini, and tomatoes.",
+    "price": "$12"
+  },
+  {
+    "id": 9,
+    "recipe_name": "Gazpacho",
+    "description": "A cold soup with a blend of raw vegetables, breadcrumbs, and olive oil.",
+    "price": "$10"
+  },
+  {
+    "id": 10,
+    "recipe_name": "Fattoush",
+    "description": "A salad with mixed greens, tomatoes, cucumber, and pita chips, dressed with lemon and sumac.",
+    "price": "$12"
+  },
+  {
+    "id": 11,
+    "recipe_name": "Shawarma",
+    "description": "Marinated meat cooked on a spit and served in a pita with tahini sauce.",
+    "price": "$15"
+  },
+  {
+    "id": 12,
+    "recipe_name": "Stuffed Bell Peppers",
+    "description": "Bell peppers stuffed with a mixture of rice, ground meat, and spices.",
+    "price": "$16"
+  }
+]
+```

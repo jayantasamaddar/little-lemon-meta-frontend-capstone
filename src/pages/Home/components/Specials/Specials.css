@@ -12,11 +12,11 @@ section.specials {
   align-items: center;
 }
 
-.specials-items {
+#LL-Section-SpecialItems {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  align-content: center;
+  align-items: stretch;
+  gap: 2.25rem;
   flex-wrap: wrap;
 }
 
@@ -27,9 +27,21 @@ section.specials {
   align-items: center;
 }
 
+.food-desc {
+  color: var(--color-primary);
+}
+
 .food-price {
   color: var(--color-secondary);
   font-weight: 700;
+}
+
+.LL-OrderButton {
+  place-items: flex-end;
+}
+
+.btn.btn-order {
+  width: 100px !important;
 }
 
 @media screen and (max-width: 1024px) {
