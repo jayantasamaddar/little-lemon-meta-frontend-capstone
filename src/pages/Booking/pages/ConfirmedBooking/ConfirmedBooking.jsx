@@ -1,14 +1,10 @@
 import { useEffect } from 'react';
 import { useOutletContext, Navigate } from 'react-router-dom';
 import { Heading, Logo, Main, Table } from '../../../../components';
-import { useForm } from '../../../../context';
 import './ConfirmedBooking.css';
 
 export const ConfirmedBooking = () => {
-  const { state } = useForm();
-  const { data } = useOutletContext();
-
-  const { stage } = state;
+  const { data, stage } = useOutletContext() ?? { data: {}, stage: '' };
 
   const columns = Object.entries(data).map(([key, val], i) => ({
     id: i + 1,
@@ -16,9 +12,7 @@ export const ConfirmedBooking = () => {
     label: key.toUpperCase(),
   }));
 
-  console.log({ columns });
-
-  /** Store in DB (Local Storage according to course) */
+  /** Store in DB in production */
   useEffect(() => {
     if (stage === 'Thank You') {
       try {
@@ -41,9 +35,7 @@ export const ConfirmedBooking = () => {
           height="100px"
           width="fit-content"
         />
-        <Heading tag="h1" size="xl">
-          Booking Confirmed
-        </Heading>
+        <Heading size="xl">Booking Confirmed</Heading>
         <p>
           We are pleased to inform you that your reservation request has been
           received and confirmed.

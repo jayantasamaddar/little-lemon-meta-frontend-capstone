@@ -1,10 +1,12 @@
-import './Footer.css';
+import { createElement } from 'react';
 import { Logo, Heading, SocialMediaWidget } from '../../components';
 import { Link } from 'react-router-dom';
+import navigation from '../../settings/cms/navigation.json';
+import './Footer.css';
 
 export const Footer = () => {
   return (
-    <footer>
+    <footer role="region" aria-label="Footer Section">
       <Logo
         className="LL-FooterLogo"
         src="https://ik.imagekit.io/zenius/Coursera/html-css/Asset_14_4x_d1Yk7QBPiW.png?ik-sdk-version=javascript-1.4.3&updatedAt=1674426270880"
@@ -17,31 +19,18 @@ export const Footer = () => {
         </Heading>
         <nav className="LL-Navigation LL-FooterNavigation">
           <ul>
-            <li>
-              <Link title="Home" to="/">
-                Home
-              </Link>
-            </li>
-            <li>
-              <a title="About" href="/#about">
-                About
-              </a>
-            </li>
-            <li>
-              <a title="Menu" href="/#specials">
-                Menu
-              </a>
-            </li>
-            <li>
-              <Link title="Bookings" to="/bookings">
-                Bookings
-              </Link>
-            </li>
-            <li>
-              <a title="Order" href="/#specials">
-                Order
-              </a>
-            </li>
+            {navigation.map(({ id, name, title, link, url, state }) => {
+              const Element = link === 'internal' ? Link : 'a';
+              const linkProps =
+                Element === 'a' ? { href: url } : { to: url, state };
+              return createElement(
+                'li',
+                { key: id, name, role: 'menuitem' },
+                <Element title={title} {...linkProps}>
+                  {title}
+                </Element>
+              );
+            })}
           </ul>
         </nav>
       </section>

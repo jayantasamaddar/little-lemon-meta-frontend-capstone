@@ -1,5 +1,6 @@
 table.LL-Table {
   width: 100%;
+  display: flex;
   border-collapse: collapse;
 }
 
@@ -15,4 +16,10 @@ table.LL-Table {
 
 .LL-TableCell {
   padding: 1rem;
+}
+@media only screen and (max-width: 1000px) {
+  table.LL-Table {
+    overflow-x: scroll;
+    overscroll-behavior-x: contain;
+  }
 }

@@ -11,18 +11,18 @@ export const Card = ({
   height,
 }) => {
   const position = IMAGE_PLACEMENT.includes(imagePosition) ? imagePosition : '';
-  const classes = `card ${position}`;
+  const classes = `LL-Card ${position}`;
 
   return (
     <article className={classes} style={{ width: width ?? 'auto' }}>
-      <section className={`card-image ${position}`}>
+      <section className={`LL-CardImage ${position}`}>
         <img
           src={image || 'https://via.placeholder.com/300x200?text=Card+Image'}
           alt={title}
-          title={title}
+          title={`${title} | Little Lemon`}
         />
       </section>
-      <div className="card-body">{children}</div>
+      <div className="LL-CardBody">{children}</div>
     </article>
   );
 };

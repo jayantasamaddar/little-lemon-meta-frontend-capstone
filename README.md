@@ -1,224 +1,190 @@
-# Booking App
+# Table of Contents
 
-## Scenario
-
-Currently, a visitor to the Little Lemon web app cannot reserve a table. Your task is to improve the app by allowing the user to enter data into the form so that they can complete their registration. Thus, you need to build a Booking Form component that has the following entries (form items):
-
-- **Date**
-- **Time**
-- **Number of guests**
-- **Occasion (Birthday, Anniversary)**
-- **Submit reservation button** (to submit the form)
-
-To do this, you need to implement a form in a controlled component named **BookingForm**.
+- [Table of Contents](#table-of-contents)
+- [The Booking App](#the-booking-app)
+- [Setup and Evaluation](#setup-and-evaluation)
+- [Front-end Architecture](#front-end-architecture)
+  - [Folder Structure](#folder-structure)
+  - [Component Architecture](#component-architecture)
+  - [Use of Dependencies](#use-of-dependencies)
+  - [Data Fetching](#data-fetching)
+  - [Unit Testing](#unit-testing)
+- [Future Considerations](#future-considerations)
+- [Honour Code](#honour-code)
 
 ---
 
-# Instructions
+# The Booking App
 
-**Step 1**: Check the component and routes
-If you haven’t done so already, create the **BookingForm** and **BookingPage** components. The **BookingPage** will contain the **BookingForm** component, in addition to any additional content before and after the form.
+This Booking App was created as the final capstone project of the **Meta Front-End Developer Certification**.
 
-> **Note**: Before proceeding to the next step, check that your routes and navigation bar are set up to allow navigation to the booking page.
+**Preview**: Little Lemon is a family-owned Mediterranean restaurant that blends traditional recipes with a modern twist. Our goal is to provide our customers with a unique dining experience that will take them on a culinary journey through the Mediterranean.
 
-**Step 2**: Code the form structure
-Next, you’ll need to build the form structure in the **BookingForm** component. You can use the following plain HTML5 implementation as a starting point, however, you should convert it to JSX so that you can later connect the input to the React state.
+**Instructions Received**: To create a modern responsive Front-end for the Little Lemon app with a Bookings feature which they lack at present.
 
-```js
-<form style="display: grid; max-width: 200px; gap: 20px">
-   <label for="res-date">Choose date</label>
-   <input type="date" id="res-date">
-   <label for="res-time">Choose time</label>
-   <select id="res-time ">
-      <option>17:00</option>
-      <option>18:00</option>
-      <option>19:00</option>
-      <option>20:00</option>
-      <option>21:00</option>
-      <option>22:00</option>
-   </select>
-   <label for="guests">Number of guests</label>
-   <input type="number" placeholder="1" min="1" max="10" id="guests">
-   <label for="occasion">Occasion</label>
-   <select id="occasion">
-      <option>Birthday</option>
-      <option>Anniversary</option>
-   </select>
-   <input type="submit" value="Make Your reservation">
-</form>
+---
+
+# Setup and Evaluation
+
+```s
+# Run in the Terminal
+git clone https://github.com/jayantasamaddar/little-lemon-meta-frontend-capstone.git folder
+
+# Install Dependencies
+npm install
+
+# Launch app in Browser
+npm start
+
+# Run Tests
+npm test
+
+# Run Tests with Coverage
+npm test:cv
 ```
 
-> **Note**: Keep in mind the difference between the **for** attribute in HTML and **htmlFor** in JSX. Also, remember to self-close all tags in JSX.
+---
 
-**Step 3**: Code the form behavior
-Using what you already know about **events**, **effects** and **state** in React, update your form's code to keep track of its own state.
+# Front-end Architecture
 
-- Define a state variable for field in the form.
+There were several considerations for the frontend architecture.
 
-- Connect each **state** variable to the form fields using the value and **onChange** form element attributes.
-
-- The options in the booking time field should be displayed from a list of available times. For now, create a stateful array in the component named **`availableTimes`** and use this state variable to populate the time select field options.
-
-Tip: Use the **useState** function to declare the variable.
-
-Now that the state is connected to the input elements, the form is ready to communicate with an API, a task you may complete in future.
+1. **Folder Structure** - How would the files be organized in the `src` folder.
+2. **Component Architecture** - How best to write reusable components.
+3. **Use of Dependencies** - Choice on what dependencies to use.
+4. **Data Fetching** - How we will manage the data used by the app.
+5. **Unit Testing** - How to have good coverage in our unit tests.
 
 ---
 
-# Instructions: Testing
+## Folder Structure
 
-Step 2: Test the **updateTimes** and **initializeTimes** functions
+Separate folders for:
 
-The next step is to validate the behavior of the updateTimes and **initializeTimes** reducer functions.
+- **components**: For individual components. Complex components have nested `components` folder. The component folder has 4 files usually (some components are auto-tested without having to create a separate test file. Thus a single folder inside the `components` folder is all inclusive as a single Unit having the Renderer, the stylesheet and the unit test.
 
-- Write a unit test for the **initializeTimes** function to validate that it returns the correct expected value.
+  - `Component.jsx` (The Component)
+  - `Component.css` (The stylesheet)
+  - `index.js` (For exporting the component)
+  - `Component.test.jsx` (Test file for the component)
 
-- Write a unit test for the **updateTimes** function to validate that it returns the same value that is provided in the state. This unit test is important as it will be updated later when the logic of changing the available times based on the selected date is implemented.
+- **pages**: Single Pages in the application that have a collection of these components laid out in different ways. The individual pages in the `pages` folder, may further optionally have a `components` (which represent sections, e.g. `Testimonials`) and optionally, a `pages` (for nested pages) folder in them.
 
----
+- **context**: Contains Context Providers and basic hooks to access the Context data.
+- **hooks**: Hooks unrelated to context. E.g. `useWindowResize` to track resizing the window.
+- **actions**: Reducer function and initial states (and any hooks related to them)
+- **utilities**: Utility functions. E.g. `validateNumber`.
 
-# Instructions - Data Fetching
+> **Note**: The following has been generated with: `tree -d -I node_modules`
 
-1. **Step 1**: Set up the API library
+**The directory tree** (only directories and excluding `node_modules` and `coverage`):
 
-   To prepare for the completion of this exercise, you need to include the API JavaScript file in your code.
-
-   Add the following code to your index.html.
-
-   - <script src="https://raw.githubusercontent.com/Meta-Front-End-Developer-PC/capstone/master/api.js"></script>
-
-   The API has two functions that you can use in your code:
-
-   - **`fetchAPI (date)`** - This function accepts a date as a parameter and returns an array of available reservation times for the provided date
-
-   - **`submitAPI (formData)`** - This function accepts the booking form data as a parameter and will return true if the data was successfully submitted.
-
-- **Step 2**: Update the booking form to display the available times from the API
-
-  - Update the **`initializeTimes`** function that you previously created to use the **`fetchData`** API function to return the available times for today’s date.
-
-  > **Tip**: You can create a Date object to represent today’s date.
-
-  - Update the updateTimes function that you previously created to use the **`fetchData`** API function. Remember, you dispatched the selected date to the **`updateTimes`** function. This should be passed to the **`fetchData`** function as a parameter.
-
-- **Step 3**: Test the behavior
-
-  Run your web app and check that the available times on the booking form change when you select a different date.
-
----
-
-# Instructions - Booking Confirmation Page
-
-**Step 1**: Set up a booking confirmation page
-
-Create a component named ConfirmedBooking that will represent the booking confirmation page.
-
-Add JSX to display a message that the booking has been confirmed.
-
-Add a route that will allow navigation to the booking confirmation page.
-
-**Step 2**: Set up the function for submitting the form
-In the Main component, set up a function named submitForm that accepts the form data as a parameter and will submit it to the submitAPI (formData) API set up in the previous exercise.
-
-If the submitAPI(formData) API call returns true, navigate to the booking confirmed page.
-
-Tip: You can use the useNavigate() hook to navigate via code.
-
-**Step 3**: Update the submit event handler
-Pass the submitForm function to the BookingForm component via props.
-
-Update the button submit event handler to call the submitForm function, passing the form data as a parameter.
-
-Step 3: Test the app
-Run the app and verify that the booking confirmation page is displayed when you submit the form.
-
----
-
-# About Me
-
-About Us: Little Lemon is a family-owned Mediterranean restaurant that blends traditional recipes with a modern twist. Our goal is to provide our customers with a unique dining experience that will take them on a culinary journey through the Mediterranean.
-
-We use only the freshest ingredients to bring you authentic flavors that will tantalize your taste buds. Our menu is inspired by our family’s traditional recipes and has been passed down through generations. Our chefs use these recipes as a foundation, but add a contemporary touch to bring our dishes to life.
-
-In addition to dining in, we also offer an online ordering facility for those who prefer to enjoy our food in the comfort of their own home. Our online ordering system is easy to use and provides a quick and convenient way to order your favorite Little Lemon dishes.
-
-We also have tables available for booking, so whether it's for a special occasion or just a night out with friends, Little Lemon is the perfect venue for your next dining experience.
-
-At Little Lemon, we strive to provide an exceptional dining experience that is both memorable and delicious. Come visit us and taste the difference that tradition and innovation can bring to your plate.
-
-```json
-[
-  {
-    "id": 1,
-    "recipe_name": "Moussaka",
-    "description": "A layered dish with eggplant, ground beef, and a creamy béchamel sauce.",
-    "price": "$15"
-  },
-  {
-    "id": 2,
-    "recipe_name": "Falafel",
-    "description": "Crunchy balls made from ground chickpeas and spices, served with tahini sauce.",
-    "price": "$10"
-  },
-  {
-    "id": 3,
-    "recipe_name": "Tabbouleh",
-    "description": "A salad with parsley, mint, tomatoes, and bulgur wheat, dressed with lemon and olive oil.",
-    "price": "$12"
-  },
-  {
-    "id": 4,
-    "recipe_name": "Baklava",
-    "description": "A sweet pastry with layers of phyllo dough and honey syrup, filled with ground nuts.",
-    "price": "$7"
-  },
-  {
-    "id": 5,
-    "recipe_name": "Lamb Kofta",
-    "description": "Minced lamb skewers with spices, served with a tomato sauce.",
-    "price": "$18"
-  },
-  {
-    "id": 6,
-    "recipe_name": "Hummus",
-    "description": "A creamy dip made from chickpeas, tahini, lemon, and garlic.",
-    "price": "$8"
-  },
-  {
-    "id": 7,
-    "recipe_name": "Bouillabaisse",
-    "description": "A fish stew with a tomato base, served with crusty bread.",
-    "price": "$20"
-  },
-  {
-    "id": 8,
-    "recipe_name": "Ratatouille",
-    "description": "A stewed vegetable dish with eggplant, bell peppers, zucchini, and tomatoes.",
-    "price": "$12"
-  },
-  {
-    "id": 9,
-    "recipe_name": "Gazpacho",
-    "description": "A cold soup with a blend of raw vegetables, breadcrumbs, and olive oil.",
-    "price": "$10"
-  },
-  {
-    "id": 10,
-    "recipe_name": "Fattoush",
-    "description": "A salad with mixed greens, tomatoes, cucumber, and pita chips, dressed with lemon and sumac.",
-    "price": "$12"
-  },
-  {
-    "id": 11,
-    "recipe_name": "Shawarma",
-    "description": "Marinated meat cooked on a spit and served in a pita with tahini sauce.",
-    "price": "$15"
-  },
-  {
-    "id": 12,
-    "recipe_name": "Stuffed Bell Peppers",
-    "description": "Bell peppers stuffed with a mixture of rice, ground meat, and spices.",
-    "price": "$16"
-  }
-]
+```s
+├── public
+└── src
+    ├── actions
+    ├── assets
+    ├── components
+    │   ├── Backdrop
+    │   ├── Button
+    │   ├── Card
+    │   ├── Error
+    │   ├── Footer
+    │   ├── Header
+    │   │   └── components
+    │   │       └── BurgerMenu
+    │   ├── Heading
+    │   ├── Icon
+    │   ├── Label
+    │   ├── Logo
+    │   ├── Main
+    │   ├── ProgressBar
+    │   ├── ReviewStar
+    │   ├── Select
+    │   │   └── components
+    │   │       └── Option
+    │   ├── SocialMediaWidget
+    │   ├── Stack
+    │   ├── Table
+    │   │   └── components
+    │   │       ├── TableBody
+    │   │       ├── TableCell
+    │   │       ├── TableHeader
+    │   │       └── TableRow
+    │   └── Textfield
+    ├── context
+    │   ├── AppProvider
+    │   ├── FormProvider
+    │   └── ThemeProvider
+    ├── hooks
+    ├── pages
+    │   ├── Booking
+    │   │   ├── components
+    │   │   │   └── BookingForm
+    │   │   └── pages
+    │   │       └── ConfirmedBooking
+    │   └── Home
+    │       └── components
+    │           ├── About
+    │           ├── Hero
+    │           ├── Specials
+    │           └── Testimonials
+    └── utilities
+        └── tests
 ```
+
+---
+
+## Component Architecture
+
+There following Design Patterns have been followed:
+
+- Most components are single units of functional code.
+- In case of complex components that are comprised of components that can be used standalone, they were broken into separate components. The folder structure above explains where they reside.
+
+- Where responsibility needed to be isolated, it was done: E.g. Table ([read more]('./src/components/../../../src/components/Table/README.md')).
+
+- The **`Stack`** and **`Table`** elements, OPTIONALLY also have the **[Composite Components pattern](https://betterprogramming.pub/compound-component-design-pattern-in-react-34b50e32dea0)**. It allows some more flexibility as explained in the Table documentation above.
+
+- A **FormContextProvider** supplies the current `state` and `dispatch` function to update the state to the Booking Form. This pattern ensures, we can continue to have multiple forms in the app, as we grow the app while having a different Context limited to that individual multi-level form.
+
+---
+
+## Use of Dependencies
+
+This project was developed with the personal intention to minimize dependencies as much as possible to test my core skills.
+
+- No CSS Library has been used. All the CSS has been written from scratch.
+
+- No Form Library like Formik or form validation library like Yup has been used. They have already been used in an earlier project in the certification and the decision was simply to have this implemented without using them. Utility functions like `validateNumber` have been created and used. Find them in the `src/utilities` folder.
+- Font Awesome has been used for the icons.
+
+---
+
+## Data Fetching
+
+A lot of data is replicated (e.g. links at header and footer) and/or is available as an array or an object that can grow or shrink in size. Thus, we need to consider the possibility of retrieving this from a database or a Content Management System. For now, we will mock this by using the data at `settings/cms` folder to simulate fetching from a centralized CMS.
+
+---
+
+## Unit Testing
+
+Unit Testing has been done with the help of React Testing Library, Jest, Jestdom that can already shipped with `create-react-app`.
+
+- The `setupTests.js` have been modified, so that we can interact with the window global object.
+- Mocks for React hooks have been done throughout within the components itself. Mocks for `useContext`, `useLocation`, `useForm`, `dispatch` function of the `useReducer` have all been covered.
+- The unit tests can be found in each of the component and page folders.
+
+---
+
+# Future Considerations
+
+- The use of **Context API** and **`useReducer`** has been done in the Form to make sure the Form can have multiple levels and flexibility for any future modifications. While this is not needed in the Meta Capstone project, however to have an advanced service in a production level application, for e.g. A Mobile Phone OTP Validation service (to confirm that this is a valid person booking, considering restaurant tables are limited and we would like to prevent bots), a middleware form with an input phone field, a button and fields to enter a 4-digit OTP can be present. This field can then dispatch an action - `dispatch({ type: "OTPValidation" })`, which can then be processed by the reducer function and the `stage` updated, so the form can proceed to the next stage.
+
+- A `ThemeProvider` that wraps all Pages of the app that will provide the styling when themes are switched from dark to light.
+
+---
+
+# Honour Code
+
+This demo project is solely done by me, Jayanta Samaddar. You can contact me on **[GitHub](https://www.github.com/jayantasamaddar)** for interesting projects to work on.

@@ -1,4 +1,4 @@
-section.specials {
+section.LL-Specials {
   padding: 100px 12%;
   display: flex;
   flex-direction: column;
@@ -20,7 +20,7 @@ section.specials {
   flex-wrap: wrap;
 }
 
-.card-header {
+.LL-CardHeader {
   display: inline-flex;
   width: 100%;
   justify-content: space-between;
@@ -33,7 +33,7 @@ section.specials {
 
 .food-price {
   color: var(--color-secondary);
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .LL-OrderButton {
@@ -45,7 +45,7 @@ section.specials {
 }
 
 @media screen and (max-width: 1024px) {
-  .specials-items {
+  #LL-Section-SpecialItems {
     gap: 1.25rem;
   }
 }

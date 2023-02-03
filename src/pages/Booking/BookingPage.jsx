@@ -6,91 +6,18 @@ import './BookingPage.css';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { BookingForm } from './components';
 import { FormContextProvider } from '../../context';
-import {
-  currentDateTime,
-  fetchAPI,
-  submitAPI,
-  generateBookingID,
-} from '../../utilities';
+import { submitAPI } from '../../utilities';
 
 import { bookingFormReducer, STAGES, loadInitialState } from '../../actions';
 
-// const STAGES = ['Reservation Details', 'Thank You'];
-
 export const BookingPage = () => {
   const location = useLocation();
-
-  // const loadInitialState = () => ({
-  //   availableTimes: fetchAPI(new Date()), // initializeTimes as per Instructions
-  //   formData: {
-  //     firstName: '',
-  //     lastName: '',
-  //     bookingDate: currentDateTime(1).date,
-  //     bookingTime: '17:00',
-  //     guests: '1',
-  //     occasion: '',
-  //   },
-  //   formErrors: {
-  //     firstName: '',
-  //     lastName: '',
-  //     bookingDate: '',
-  //     bookingTime: '',
-  //     guests: '1',
-  //     occasion: '',
-  //   },
-  //   isDirty: {
-  //     firstName: false,
-  //     lastName: false,
-  //     bookingDate: false,
-  //     bookingTime: false,
-  //     guests: false,
-  //     occasion: false,
-  //   },
-  //   stage: STAGES[0],
-  //   booking_id: generateBookingID(),
-  // });
-
-  // const updateTimes = (state, payload) => ({
-  //   ...state,
-  //   availableTimes: fetchAPI(payload),
-  // });
-
-  // const reducer = (state, { type, payload }) => {
-  //   switch (type) {
-  //     case 'setAvailableTimes':
-  //       return updateTimes(state, payload);
-  //     case 'setFormData':
-  //       return {
-  //         ...state,
-  //         formData: { ...state.formData, ...payload },
-  //       };
-  //     case 'setIsDirty':
-  //       return {
-  //         ...state,
-  //         isDirty: { ...state.isDirty, ...payload },
-  //       };
-  //     case 'setFormErrors':
-  //       return {
-  //         ...state,
-  //         formErrors: { ...state.formErrors, ...payload },
-  //       };
-  //     case 'setStage':
-  //       return { ...state, stage: payload };
-  //     case 'reset': {
-  //       return { ...loadInitialState() };
-  //     }
-  //     default:
-  //       break;
-  //   }
-  // };
 
   const [state, dispatch] = useReducer(bookingFormReducer, loadInitialState());
 
   useEffect(() => {
     if (location?.state?.from === 'navigation') dispatch({ type: 'reset' });
   }, [location?.state?.from]);
-
-  // console.log({ stateInBookingPage: state });
 
   const navigate = useNavigate();
 
@@ -118,6 +45,7 @@ export const BookingPage = () => {
   const submitForm = e => {
     e.preventDefault();
     try {
+      // Loop through the state.formErrors object and find if any fields have errors
       if (Object.values(state.formErrors).find(val => val.length > 0)) {
         throw new Error('Form could not be submitted - contains errors!');
       }
@@ -130,7 +58,7 @@ export const BookingPage = () => {
       if (response) {
         goNextStage();
         navigate('thank-you');
-      }
+      } else throw new Error('Form could not be submitted to the server.');
     } catch (err) {
       console.log(err.message);
     }
@@ -144,7 +72,7 @@ export const BookingPage = () => {
 
       <nav className="LL-BookingPageNavigation">
         {STAGES[STAGES.length - 1] !== state.stage && (
-          <Button unstyled onClick={goPreviousStage}>
+          <Button ariaLabel="Go Back" unstyled onClick={goPreviousStage}>
             <Icon src={faArrowLeft} size="2x" />
           </Button>
         )}
@@ -152,7 +80,7 @@ export const BookingPage = () => {
           {state.stage}
         </Heading>
         {STAGES[STAGES.length - 1] !== state.stage && (
-          <Button unstyled onClick={() => {}}>
+          <Button ariaLabel="Exit" unstyled onClick={() => {}}>
             <Icon src={faTimes} size="2x" />
           </Button>
         )}

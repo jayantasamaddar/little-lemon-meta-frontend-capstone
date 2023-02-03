@@ -1,8 +1,10 @@
 {
-  "name": "meta-frontend-capstone",
-  "version": "0.1.0",
+  "name": "little-lemon-meta-frontend-capstone",
+  "version": "0.2.0",
   "private": true,
-  "author": "Jayanta Samaddar",
+  "author": "Jayanta Samaddar <jayanta@zenius.one>",
+  "main": "index.js",
+  "respository": "https://github.com/jayantasamaddar/little-lemon-meta-frontend-capstone.git",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
@@ -19,9 +21,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "REACT_APP_STAGE=DEVELOPMENT react-scripts test",
-    "test:cv": "REACT_APP_STAGE=DEVELOPMENT react-scripts test --coverage --verbose",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test",
+    "test:cv": "react-scripts test --coverage --verbose",
+    "eject": "react-scripts eject",
+    "clean": "rm -rf coverage"
   },
   "eslintConfig": {
     "extends": [

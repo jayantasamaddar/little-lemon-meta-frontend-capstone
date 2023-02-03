@@ -12,6 +12,7 @@ export const Button = forwardRef(
       primary,
       outline,
       alert,
+      role,
       disabled,
       children,
       onClick,
@@ -35,7 +36,7 @@ export const Button = forwardRef(
         ? 'btn-unstyled'
         : 'btn' + (className ? ` ${className}` : ''),
       type,
-      role: 'button',
+      role: role ? role + ' button' : 'button',
       disabled,
       ref,
     };

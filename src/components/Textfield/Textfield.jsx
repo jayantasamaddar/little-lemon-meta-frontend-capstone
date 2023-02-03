@@ -12,7 +12,6 @@ import './Textfield.css';
 
 const VALID_INPUT_TYPES = [
   'text',
-  'textfield',
   'number',
   'email',
   'password',
@@ -44,6 +43,7 @@ export const Textfield = forwardRef(
       onChange,
       ariaLabelledBy,
       ariaDescribedBy,
+      ariaErrorMessage,
       multiline,
       labelHidden,
       selectOnFocus,
@@ -60,7 +60,7 @@ export const Textfield = forwardRef(
 
     const Input = multiline ? 'textarea' : 'input';
     const _id = useId();
-    const input_id = id ?? `${name}-${_id}`;
+    const input_id = id ?? `${name ? '-' : ''}${_id}`;
     const label_id = ariaLabelledBy
       ? ariaLabelledBy
       : input_id
@@ -114,6 +114,13 @@ export const Textfield = forwardRef(
         : error_id
         ? error_id
         : undefined,
+      'aria-errormessage': ariaErrorMessage
+        ? ariaErrorMessage
+        : error_id
+        ? error_id
+        : undefined,
+      'aria-disabled': disabled,
+      'aria-multiline': multiline,
     };
 
     const additionalClasses = isDirty && error_id ? 'error' : '';

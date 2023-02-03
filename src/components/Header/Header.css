@@ -41,6 +41,10 @@ nav .LL-IconsList {
   padding: 0 40px;
 }
 
+ul.LL-NavigationMenuList li a {
+  padding: 1rem 1rem 1rem 0;
+}
+
 @media only screen and (max-width: 768px) {
   #LL-HeaderMenu {
     position: absolute;

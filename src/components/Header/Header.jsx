@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, createElement } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 import {
@@ -9,6 +9,8 @@ import { Logo, Icon } from '../../components';
 import { BurgerMenu } from './components';
 import { useWindowResize } from '../../hooks';
 import { useScrollDirection } from '../../hooks/useScrollDirection';
+
+import navigation from '../../settings/cms/navigation.json';
 
 export const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -26,7 +28,9 @@ export const Header = () => {
   useEffect(() => {
     if (windowWidth > 768) {
       setShowMenu(true);
-    } else setShowMenu(false);
+    } else {
+      setShowMenu(false);
+    }
   }, [windowWidth]);
 
   /** Add classes based on Burger Menu open/close state */
@@ -40,11 +44,12 @@ export const Header = () => {
     }
   }, [showMenu]);
 
-  /** Enable feature: Click outside to close */
+  /** Enable feature: Click outside to close (also closes if clicked on menu links) */
   useEffect(() => {
     const handler = ({ target }) => {
       if (
-        target.closest('nav#LL-HeaderMenu') === menuRef.current ||
+        (target.closest('nav#LL-HeaderMenu') === menuRef.current &&
+          target.tagName !== 'A') ||
         target.closest('button#LL-BurgerMenu') === burgerRef.current
       )
         return;
@@ -56,12 +61,18 @@ export const Header = () => {
   }, []);
 
   /**********************************************************************************/
-  /** Handle Events */
+  /** Accessibility */
   /**********************************************************************************/
+
+  const menuOrientation = {
+    'aria-orientation': windowWidth > 768 ? 'horizontal' : 'vertical',
+    'aria-hidden': windowWidth < 768 && !showMenu ? 'true' : 'false',
+  };
 
   /** Enable Key Accessibility */
   const handleKeys = e => {
     switch (e.key) {
+      // Close expanded mobile menu
       case 'Escape':
         if (showMenu) setShowMenu(false);
         break;
@@ -75,7 +86,7 @@ export const Header = () => {
   /**********************************************************************************/
 
   return (
-    <header data-scroll={direction}>
+    <header role="region" aria-label="Header Region" data-scroll={direction}>
       {windowWidth < 768 && (
         <BurgerMenu
           ref={burgerRef}
@@ -94,49 +105,40 @@ export const Header = () => {
       />
 
       {showMenu && (
-        <nav id="LL-HeaderMenu" className="LL-Navigation" ref={menuRef}>
-          <ul className="LL-NavigationMenuList">
-            <li>
-              <Link title="Home" to="/">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link title="About" to="/#about">
-                About
-              </Link>
-            </li>
-            <li>
-              <a title="Menu" href="/#specials">
-                Menu
-              </a>
-            </li>
-            <li>
-              <Link
-                title="Bookings"
-                to="/bookings"
-                state={{
-                  from: 'navigation',
-                }}
-              >
-                Bookings
-              </Link>
-            </li>
-            <li>
-              <Link title="Order" to="/#specials">
-                Order
-              </Link>
-            </li>
+        <nav
+          id="LL-HeaderMenu"
+          role="menubar"
+          className="LL-Navigation"
+          ref={menuRef}
+          {...menuOrientation}
+        >
+          <ul
+            className="LL-NavigationMenuList"
+            role="menu group"
+            {...menuOrientation}
+          >
+            {navigation.map(({ id, name, title, link, url, state }) => {
+              const Element = link === 'internal' ? Link : 'a';
+              const linkProps =
+                Element === 'a' ? { href: url } : { to: url, state };
+              return createElement(
+                'li',
+                { key: id, name, role: 'menuitem' },
+                <Element title={title} {...linkProps}>
+                  {title}
+                </Element>
+              );
+            })}
           </ul>
         </nav>
       )}
 
-      <nav>
-        <ul className="LL-IconsList">
-          <li>
+      <nav role="menubar">
+        <ul className="LL-IconsList" role="menu group">
+          <li role="menuitem">
             <Icon title="Account" src={faUserCircle} size="xl" />
           </li>
-          <li>
+          <li role="menuitem">
             <Icon title="Cart" src={faCartShopping} size="xl" />
           </li>
         </ul>

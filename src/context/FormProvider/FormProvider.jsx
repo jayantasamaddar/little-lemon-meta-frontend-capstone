@@ -6,7 +6,4 @@ export const FormContextProvider = ({ children, value }) => {
   return <FormContext.Provider value={value}>{children}</FormContext.Provider>;
 };
 
-export const useForm = () => {
-  const value = useContext(FormContext);
-  return value;
-};
+export const useForm = () => useContext(FormContext);

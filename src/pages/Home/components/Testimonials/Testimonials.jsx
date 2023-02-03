@@ -3,7 +3,7 @@ import './Testimonials.css';
 
 export const Testimonials = ({ data }) => {
   return (
-    <section id="testimonials">
+    <section id="testimonials" className="LL-Testimonials">
       <Heading size="xl" align="center">
         Testimonials
       </Heading>
@@ -11,7 +11,7 @@ export const Testimonials = ({ data }) => {
         {data.map(({ id, rating, name, review, image }) => (
           <Card
             key={`testimonial-card-${name.trim()}-${id}`}
-            title="Testimonials"
+            title={`Testimonial by ${name}`}
             imagePosition="left"
             image={image}
           >

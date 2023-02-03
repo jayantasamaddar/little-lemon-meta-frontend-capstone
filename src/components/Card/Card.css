@@ -1,4 +1,4 @@
-article.card {
+article.LL-Card {
   display: flex;
   flex-direction: column;
   box-shadow: var(--box-shadow-2);
@@ -6,30 +6,30 @@ article.card {
   flex-wrap: wrap;
 }
 
-.card-image {
+.LL-CardImage {
   display: block;
   width: 100%;
 }
 
-.card-image img {
+.LL-CardImage img {
   width: 100%;
   object-fit: cover;
 }
 
-.card-image .top-full {
+.LL-CardImage .top-full {
   width: 100%;
 }
 
-.card-image.top-full img {
+.LL-CardImage.top-full img {
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
 }
 
-.card-image.left {
+.LL-CardImage.left {
   width: auto;
 }
 
-.card-body {
+.LL-CardBody {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -37,7 +37,7 @@ article.card {
 }
 
 @media only screen and (max-width: 824px) {
-  article.card {
+  article.LL-Card {
     width: 100% !important;
   }
 }

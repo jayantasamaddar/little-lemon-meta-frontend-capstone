@@ -6,15 +6,24 @@ export const Label = ({
   id,
   required,
   children,
+  hidden,
   ...restProps
 }) => {
+  const accessibilityProps = {
+    'aria-hidden': hidden,
+  };
+  const dataProps = {
+    'data-required': required ? true : undefined,
+    'data-hidden': hidden,
+  };
   return (
     <label
       id={id}
       className={`LL-Label ${className ?? ''}`}
       htmlFor={htmlFor}
-      {...{ 'data-required': required ? true : undefined }}
+      {...dataProps}
       {...restProps}
+      {...accessibilityProps}
     >
       {children}
     </label>

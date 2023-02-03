@@ -1,9 +1,12 @@
 import './Option.css';
 
-export const Option = ({ value, disabled, children }) => {
-  return (
-    <option className="LL-SelectOption" value={value} disabled={disabled}>
-      {children}
-    </option>
-  );
+export const Option = ({ id, value, disabled, selected, children }) => {
+  const coreProps = {
+    id,
+    className: 'LL-SelectOption',
+    value,
+    disabled,
+    'aria-selected': selected,
+  };
+  return <option {...coreProps}>{children}</option>;
 };

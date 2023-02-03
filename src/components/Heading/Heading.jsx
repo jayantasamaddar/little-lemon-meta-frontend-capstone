@@ -32,7 +32,6 @@ export const Heading = ({ tag = 'h2', size, align = 'left', children }) => {
         computedSize += 'sm';
         break;
       default:
-        computedSize += 'm';
         break;
     }
   }

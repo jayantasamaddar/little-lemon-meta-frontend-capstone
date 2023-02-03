@@ -7,5 +7,5 @@ export const Main = ({ children }) => {
     window.addEventListener('unload', handler);
     return () => window.removeEventListener(this, handler);
   }, []);
-  return <main>{children}</main>;
+  return <main role="region">{children}</main>;
 };

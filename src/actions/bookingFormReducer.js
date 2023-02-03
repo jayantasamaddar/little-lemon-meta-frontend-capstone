@@ -1,6 +1,23 @@
 import { currentDateTime, fetchAPI, generateBookingID } from '../utilities';
 
 export const STAGES = ['Reservation Details', 'Thank You'];
+export const OCCASIONS_LIST = [
+  {
+    id: 1,
+    label: 'Birthday',
+    value: 'birthday',
+  },
+  {
+    id: 2,
+    label: 'Anniversary',
+    value: 'anniversary',
+  },
+  {
+    id: 3,
+    label: 'Engagement',
+    value: 'engagement',
+  },
+];
 
 export const loadInitialState = () => ({
   availableTimes: fetchAPI(new Date()), // initializeTimes as per Instructions
@@ -29,6 +46,7 @@ export const loadInitialState = () => ({
     occasion: false,
   },
   stage: STAGES[0],
+  occasions_list: OCCASIONS_LIST,
   booking_id: generateBookingID(),
 });
 

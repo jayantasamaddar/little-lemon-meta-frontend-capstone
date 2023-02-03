@@ -16,6 +16,10 @@
   left: 0;
 }
 
+#LL-ProgressValue {
+  visibility: hidden;
+}
+
 .LL-ProgressBarIndicator {
   position: relative;
   height: 100%;

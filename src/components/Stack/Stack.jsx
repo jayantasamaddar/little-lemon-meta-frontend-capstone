@@ -30,7 +30,7 @@ const Stack = ({
   };
 
   return (
-    <div className={`stack ${className ?? ''}`} style={styles}>
+    <div role="group" className={`stack ${className ?? ''}`} style={styles}>
       {children}
     </div>
   );

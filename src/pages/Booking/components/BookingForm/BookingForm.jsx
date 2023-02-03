@@ -3,49 +3,25 @@ import { Textfield, Button, Select } from '../../../../components';
 import './BookingForm.css';
 import {
   compareDates,
-  withinReservationHours,
   roundTime,
   normalizeAvailability,
+  validateNumber,
 } from '../../../../utilities';
 import { useForm } from '../../../../context';
 
-const OCCASIONS_LIST = [
-  {
-    id: 1,
-    label: 'Birthday',
-    value: 'birthday',
-  },
-  {
-    id: 2,
-    label: 'Anniversary',
-    value: 'anniversary',
-  },
-  {
-    id: 3,
-    label: 'Engagement',
-    value: 'engagement',
-  },
-];
-
 export const BookingForm = ({ onSubmit }) => {
   const {
-    state: { availableTimes, formData, formErrors, isDirty },
+    state: { availableTimes, formData, formErrors, isDirty, occasions_list },
     dispatch,
   } = useForm() ?? {
-    state: { availableTimes: [], formdata: {}, formErrors: {}, isDirty: {} },
-  };
-
-  console.log({
-    stateInForm: { availableTimes, formData, formErrors, isDirty },
-  });
-
-  const test_id =
-    process.env.REACT_APP_STAGE === 'DEVELOPMENT'
-      ? { 'data-testid': 'reservation-form' }
-      : {};
-
-  const handleCheck = () => {
-    console.log('');
+    state: {
+      availableTimes: [],
+      formdata: {},
+      formErrors: {},
+      isDirty: {},
+      occasions_list: [],
+    },
+    dispatch: () => {},
   };
 
   /**********************************************************************************/
@@ -79,21 +55,31 @@ export const BookingForm = ({ onSubmit }) => {
 
   const handleChange = useCallback(
     ({ target }) => {
-      const { id, name, type, value, required, min, max } = target;
+      const { id, name, value, required, min, max } = target;
 
-      // Set values
-      dispatch({ type: 'setFormData', payload: { [name || id]: value } });
+      // Guests Validation
+      if (name === 'guests' && !validateNumber(value, min, max)) {
+        dispatch({
+          type: 'setFormErrors',
+          payload: {
+            [name]: `You are allowed to make reservations for ${min} to ${max} guests.`,
+          },
+        });
+      } else {
+        // Set values for other fields
+        dispatch({ type: 'setFormData', payload: { [name]: value } });
+      }
 
       // Required validation for all fields
       if (required && value === '') {
         // Show Error for all fields
         dispatch({
           type: 'setFormErrors',
-          payload: { [name || id]: `${name || id} is a required field!` },
+          payload: { [name]: `${name} is a required field!` },
         });
       } else {
         // Reset errors for all fields
-        dispatch({ type: 'setFormErrors', payload: { [name || id]: '' } });
+        dispatch({ type: 'setFormErrors', payload: { [name]: '' } });
       }
 
       // Date Validation
@@ -105,29 +91,6 @@ export const BookingForm = ({ onSubmit }) => {
           });
         }
         dispatch({ type: 'setAvailableTimes', payload: new Date(value) });
-      }
-
-      // Time Validatiom
-      if (type === 'time') {
-        // Whether selected time is within scheduled hours
-        if (!withinReservationHours(min, max, value)) {
-          dispatch({
-            type: 'setFormErrors',
-            payload: {
-              [name]: `Reservation hours are between ${min} and ${max}!`,
-            },
-          });
-
-          // Reset value
-          dispatch({ type: 'setFormData', payload: { [name]: min } });
-          // Reset error after 5 seconds
-          const timeoutError = setTimeout(
-            () => dispatch({ type: 'setFormData', payload: { [name]: '' } }),
-            5000
-          );
-          timeoutError();
-          clearTimeout(timeoutError);
-        }
       }
     },
     [dispatch]
@@ -141,7 +104,6 @@ export const BookingForm = ({ onSubmit }) => {
     <form
       id="LL-BookingForm"
       onSubmit={onSubmit}
-      {...test_id}
       aria-label="Little Lemon - Booking Form"
     >
       <Textfield
@@ -217,7 +179,7 @@ export const BookingForm = ({ onSubmit }) => {
         name="occasion"
         placeholder="Choose an Occasion"
         dirtyPlaceholder="No Special Occasion"
-        options={OCCASIONS_LIST}
+        options={occasions_list}
         onFocus={onFocus}
         onBlur={onBlur}
         onChange={handleChange}
@@ -228,7 +190,6 @@ export const BookingForm = ({ onSubmit }) => {
       <Button
         id="btn-reservation"
         type="submit"
-        onClick={handleCheck}
         disabled={Object.values(formErrors).find(val => val.length > 0)}
       >
         View Availability

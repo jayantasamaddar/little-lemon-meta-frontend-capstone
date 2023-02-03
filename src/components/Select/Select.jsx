@@ -17,6 +17,7 @@ export const Select = forwardRef(
       dirtyPlaceholder,
       ariaLabelledBy,
       ariaDescribedBy,
+      ariaErrorMessage,
       errors,
       multiple,
       disabled,
@@ -45,6 +46,7 @@ export const Select = forwardRef(
     const elementProps = {
       id: select_id,
       ref,
+      name,
       className: `LL-Select ${className ?? ''}`,
       value,
       multiple,
@@ -59,6 +61,11 @@ export const Select = forwardRef(
       'aria-labelledby': label_id,
       'aria-describedby': ariaDescribedBy
         ? ariaDescribedBy
+        : error_id
+        ? error_id
+        : undefined,
+      'aria-errormessage': ariaErrorMessage
+        ? ariaErrorMessage
         : error_id
         ? error_id
         : undefined,
@@ -83,8 +90,13 @@ export const Select = forwardRef(
                 --
               </Option>
             )}
-            {options?.map(({ id, label, value }, i) => (
-              <Option key={id ?? value ?? i} value={value}>
+            {options?.map(({ id, label, value: v }, i) => (
+              <Option
+                id={id}
+                key={id ?? v ?? i}
+                value={v}
+                selected={v === value ? true : undefined}
+              >
                 {label}
               </Option>
             ))}
