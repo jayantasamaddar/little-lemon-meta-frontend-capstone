@@ -28,8 +28,8 @@ const Table = ({
       {rows && columns && (
         <TableBody>
           {columns && <TableHeader data={columns} />}
-          {rows?.map((row, index) => (
-            <TableRow key={row_id} data={row} rowID={index} />
+          {rows.map((row, index) => (
+            <TableRow key={row_id} data={row} rowID={row_id} />
           ))}
         </TableBody>
       )}
@@ -37,9 +37,9 @@ const Table = ({
   );
 };
 
-Table.TableCell = TableCell;
-Table.TableBody = TableBody;
-Table.TableHeader = TableHeader;
-Table.TabeRow = TableRow;
+Table.Cell = TableCell;
+Table.Body = TableBody;
+Table.Header = TableHeader;
+Table.Row = TableRow;
 
 export { Table };

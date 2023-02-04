@@ -6,6 +6,7 @@
 - [Front-end Architecture](#front-end-architecture)
   - [Folder Structure](#folder-structure)
   - [Component Architecture](#component-architecture)
+  - [Naming Conventions](#naming-conventions)
   - [Use of Dependencies](#use-of-dependencies)
   - [Data Fetching](#data-fetching)
   - [Unit Testing](#unit-testing)
@@ -51,9 +52,10 @@ There were several considerations for the frontend architecture.
 
 1. **Folder Structure** - How would the files be organized in the `src` folder.
 2. **Component Architecture** - How best to write reusable components.
-3. **Use of Dependencies** - Choice on what dependencies to use.
-4. **Data Fetching** - How we will manage the data used by the app.
-5. **Unit Testing** - How to have good coverage in our unit tests.
+3. **Naming Conventions** - How and why CSS classes, CSS Variables are named so.
+4. **Use of Dependencies** - Choice on what dependencies to use.
+5. **Data Fetching** - How we will manage the data used by the app.
+6. **Unit Testing** - How to have good coverage in our unit tests.
 
 ---
 
@@ -74,8 +76,9 @@ Separate folders for:
 - **hooks**: Hooks unrelated to context. E.g. `useWindowResize` to track resizing the window.
 - **actions**: Reducer function and initial states (and any hooks related to them)
 - **utilities**: Utility functions. E.g. `validateNumber`.
+- **settings**: Contains global settings. Has a `cms` folder that mocks a content management system from which we can source content for our pages. Can be internationalized later.
 
-> **Note**: The following has been generated with: `tree -d -I node_modules`
+> **Note**: The following has been generated with: `tree -d -I 'node_modules|coverage'`
 
 **The directory tree** (only directories and excluding `node_modules` and `coverage`):
 
@@ -129,6 +132,8 @@ Separate folders for:
     │           ├── Hero
     │           ├── Specials
     │           └── Testimonials
+    ├── settings
+    │   └── cms
     └── utilities
         └── tests
 ```
@@ -144,9 +149,53 @@ There following Design Patterns have been followed:
 
 - Where responsibility needed to be isolated, it was done: E.g. Table ([read more]('./src/components/../../../src/components/Table/README.md')).
 
-- The **`Stack`** and **`Table`** elements, OPTIONALLY also have the **[Composite Components pattern](https://betterprogramming.pub/compound-component-design-pattern-in-react-34b50e32dea0)**. It allows some more flexibility as explained in the Table documentation above.
+- The **`Stack`** and **`Table`** elements, **OPTIONALLY** also have the **[Composite Components pattern](https://betterprogramming.pub/compound-component-design-pattern-in-react-34b50e32dea0)**. It allows some more flexibility as explained in the Table documentation above.
+
+  **Example**:
+
+  ```jsx
+  import { Table } from './components';
+
+  const CustomTable = () => {
+    return (
+      <Table>
+        <Table.Body>
+          <Table.Header>
+            <Table.Cell>ID</Table.Cell>
+            <Table.Cell>Name</Table.Cell>
+            <Table.Cell>Price</Table.Cell>
+          </Table.Header>
+
+          <Table.Header>
+            <Table.Cell>1</Table.Cell>
+            <Table.Cell>Apple</Table.Cell>
+            <Table.Cell>3.00</Table.Cell>
+          </Table.Header>
+
+          <Table.Header>
+            <Table.Cell>ID</Table.Cell>
+            <Table.Cell>Mango</Table.Cell>
+            <Table.Cell>5.00</Table.Cell>
+          </Table.Header>
+        </Table.Body>
+      </Table>
+    );
+  };
+  ```
 
 - A **FormContextProvider** supplies the current `state` and `dispatch` function to update the state to the Booking Form. This pattern ensures, we can continue to have multiple forms in the app, as we grow the app while having a different Context limited to that individual multi-level form.
+
+---
+
+## Naming Conventions
+
+The naming convention followed are:
+
+- **CSS Component and Page specific Classes**: `LL-Component` for the top level class for the root element for almost every component. The child elements in that tree follow an appended PascalCase name, for e.g.`LL-ComponentSubComponent`.
+
+- **CSS utility classes**: Utility classes like `text-sm`, `text-m`, `text-xl` are preset in `App.css` to offer global styles to quickly switch between font-sizes by any component that allows it. (E.g. the **`Heading`** Component)
+
+- **CSS Variables**: CSS Variables serve as globally used presets for maintaining a standardized look and feel. The idea is to have a write-once-use-throughout approach - no need to keep writing a complex `box-shadow` property for all elements that use `box-shadow`. Instead presets in the form of `box-shadow-1`, `box-shadow-2`, `box-shadow-3` are available to use depending on the position of the element.
 
 ---
 

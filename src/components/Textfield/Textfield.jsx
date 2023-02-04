@@ -114,6 +114,7 @@ export const Textfield = forwardRef(
         : error_id
         ? error_id
         : undefined,
+      'aria-invalid': errors?.length > 0,
       'aria-errormessage': ariaErrorMessage
         ? ariaErrorMessage
         : error_id

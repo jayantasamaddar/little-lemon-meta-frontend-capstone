@@ -3,7 +3,6 @@ import { Textfield, Button, Select } from '../../../../components';
 import './BookingForm.css';
 import {
   compareDates,
-  roundTime,
   normalizeAvailability,
   validateNumber,
 } from '../../../../utilities';
@@ -28,58 +27,66 @@ export const BookingForm = ({ onSubmit }) => {
   /** With Form Context */
   /**********************************************************************************/
 
-  const onFocus = ({ target }) => {
-    dispatch({
-      type: 'setIsDirty',
-      payload: { [target.name || target.id]: true },
-    });
-  };
-
-  const onBlur = ({ target }) => {
-    // Required validation when field is dirty
-    const { name, type, value, required } = target;
-    if (isDirty && value === '' && required) {
-      dispatch({
-        type: 'setFormErrors',
-        payload: { [name]: `${name} is a required field!` },
-      });
-
-      if (type === 'time') {
-        dispatch({
-          type: 'setFormData',
-          payload: { [name]: roundTime(value, 15) },
-        });
-      }
-    }
-  };
-
-  const handleChange = useCallback(
+  const onFocus = useCallback(
     ({ target }) => {
-      const { id, name, value, required, min, max } = target;
+      dispatch({
+        type: 'setIsDirty',
+        payload: { [target.name]: true },
+      });
+    },
+    [dispatch]
+  );
 
-      // Guests Validation
-      if (name === 'guests' && !validateNumber(value, min, max)) {
-        dispatch({
-          type: 'setFormErrors',
-          payload: {
-            [name]: `You are allowed to make reservations for ${min} to ${max} guests.`,
-          },
-        });
-      } else {
-        // Set values for other fields
-        dispatch({ type: 'setFormData', payload: { [name]: value } });
-      }
-
-      // Required validation for all fields
-      if (required && value === '') {
-        // Show Error for all fields
+  const onBlur = useCallback(
+    ({ target }) => {
+      // Required validation when field is dirty
+      const { name, value, required } = target;
+      if (isDirty && value === '' && required) {
         dispatch({
           type: 'setFormErrors',
           payload: { [name]: `${name} is a required field!` },
         });
+      }
+    },
+    [dispatch, isDirty]
+  );
+
+  const handleChange = useCallback(
+    ({ target }) => {
+      const { id, name, type, value, required, min, max } = target;
+
+      /**********************/
+      /** Validations */
+      /**********************/
+      if (type === 'number' && !validateNumber(value, min, max)) {
+        switch (value) {
+          // Allow number fields to Backspace all values and allow typing new values
+          case '':
+            dispatch({ type: 'setFormData', payload: { [name]: value } });
+            dispatch({
+              type: 'setFormErrors',
+              payload: {
+                [name]: `Limit: ${min} - ${max} ${name}.`,
+              },
+            });
+            break;
+          default:
+            return; // Do nothing if value doesn't fall within min-max range
+        }
       } else {
-        // Reset errors for all fields
-        dispatch({ type: 'setFormErrors', payload: { [name]: '' } });
+        // Set values for other fields
+        dispatch({ type: 'setFormData', payload: { [name]: value } });
+        // Required validation for all fields
+        if (required && value === '') {
+          // Show Error for all fields
+          dispatch({
+            type: 'setFormErrors',
+            payload: { [name]: `${name} is a required field!` },
+          });
+        } else {
+          // Reset errors for all fields
+          dispatch({ type: 'setFormErrors', payload: { [name]: '' } });
+        }
       }
 
       // Date Validation
